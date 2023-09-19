@@ -30,4 +30,9 @@ public class MovieServiceImp implements MovieService{
 		return dtoList;
 	}
 
+	@Override
+	public MovieDTO getProcess(long id) {
+		MovieEntity entity = movieRepository.findByMovieId(id);
+		return MovieDTO.toDto(entity);
+	}
 }
