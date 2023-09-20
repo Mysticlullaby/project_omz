@@ -1,7 +1,5 @@
 package com.omz.demo.client.dto;
 
-import org.springframework.stereotype.Component;
-
 import com.omz.demo.client.entity.ClientEntity;
 
 import lombok.AllArgsConstructor;
@@ -15,7 +13,6 @@ import lombok.ToString;
 @Setter
 @Builder
 @ToString
-@Component
 @NoArgsConstructor
 @AllArgsConstructor
 public class ClientDTO {

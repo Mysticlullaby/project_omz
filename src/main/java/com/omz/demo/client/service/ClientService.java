@@ -1,12 +1,10 @@
 package com.omz.demo.client.service;
 
-import java.util.List;
-
+import com.omz.demo.client.dto.AuthInfo;
 import com.omz.demo.client.dto.ClientDTO;
 
 public interface ClientService {
 	
+	public AuthInfo signupProcess(ClientDTO dto);
 	
-	
-	public List<ClientDTO> listProcess();
 }

@@ -29,7 +29,7 @@ public class ClientEntity {
 	@Column(name = "client_id")
 	private String clientId;
 
-	@Column(name = "client_pass", nullable = false)
+	@Column(name = "client_pass")
 	private String clientPass;
 
 	@Column(name = "client_name")
@@ -50,10 +50,10 @@ public class ClientEntity {
 	@Column
 	private String mbti;
 
-	@Column(name = "reg_date")
+	@Column(name = "reg_date", insertable = false)
 	private String regDate;
 
 	@Column
-	private String grade; // 회원구분용
+	private String grade ; // 회원 구분용
 
 }

@@ -10,8 +10,8 @@ public class SecurityConfig {
 	private ClientRepository clientRepository;
 	
 	
-	public BCryptPasswordEncoder encodePassword() {
-		return new BCryptPasswordEncoder();
-	}
+//	public BCryptPasswordEncoder encodePassword() {
+//		return new BCryptPasswordEncoder();
+//	}
 
 }
