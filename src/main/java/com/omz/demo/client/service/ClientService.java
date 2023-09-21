@@ -6,5 +6,6 @@ import com.omz.demo.client.dto.ClientDTO;
 public interface ClientService {
 	
 	public AuthInfo signupProcess(ClientDTO dto);
+	public AuthInfo loginProcess(ClientDTO dto);
 	
 }

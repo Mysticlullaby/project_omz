@@ -16,6 +16,6 @@ public interface ClientRepository extends JpaRepository<ClientEntity, String> {
 //	@Query(value = "INSERT INTO omz_client(client_id, client_pass, client_name, phone, email, gender, age, mbti, reg_date, grede)"
 //			+ "VALUES(:#{#client_id}, :#{#entity.client_pass}, :#{#entity.client_name}, :#{#entity.phone}, :#{#entity.email}, :#{#entity.gender}, :#{#entity.age}, :#{#entity.mbti}, sysdate, 0)", nativeQuery = true)
 //	@Modifying
-//	void saveNew(@Param("entity") ClientEntity entity, @Param("clientId") String clientId);
+//	void saveNew(@Param("entity") ClientEntity entity);
 
 }

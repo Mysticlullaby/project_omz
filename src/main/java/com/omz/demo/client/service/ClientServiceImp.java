@@ -19,31 +19,21 @@ public class ClientServiceImp implements ClientService{
 	public ClientServiceImp() {
 	}
 	
-//	//signup
-//	public AuthInfo signupProcess(ClientDTO dto, String clientId) {
-//		ClientEntity entity = ClientDTO.toEntity(dto);
-//		clientRepository.saveNew(entity, clientId);
-//		return new AuthInfo(dto.getClientId(), dto.getClientPass());
-//	}
-	
 	//signup
 		public AuthInfo signupProcess(ClientDTO dto) {
 			ClientEntity entity = ClientDTO.toEntity(dto);
-			System.out.println(entity.getClientId() + ", " + entity.getClientName());
+//			System.out.println(entity.getClientId() + ", " + entity.getClientName());
 			clientRepository.save(entity);
 			return new AuthInfo(dto.getClientId(), dto.getClientPass());
 		}
 
-//	@Override
-//	public AuthInfo signupProcess(ClientDTO dto) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-	
-//	//login
-//	public String loginProcess(ClientDTO dto) {
-//		ClientEntity clientEntity = clientRepository.findByClientId(dto.getClientId());
-//	}
+	//login
+	public AuthInfo loginProcess(ClientDTO dto) {
+		ClientEntity clientEntity = clientRepository.findByClientId(dto.getClientId());
+		ClientDTO clientDTO = ClientDTO.toDto(clientEntity);
+		System.out.println(dto.getClientId() + ", " + dto.getClientName());
+		return new AuthInfo(clientEntity.getClientId(), clientEntity.getClientPass());
+	}
 	
 	
 

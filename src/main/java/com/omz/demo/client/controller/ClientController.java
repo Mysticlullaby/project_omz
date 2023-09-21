@@ -22,14 +22,13 @@ public class ClientController {
 	public ClientController() {
 	}
 	
-	//회원가입   
+	//회원가입
 	@PostMapping("/client/signup")
 	public String signup(@RequestBody ClientDTO clientDTO) {
 		clientDTO.setClientPass(clientDTO.getClientPass());
 		AuthInfo authInfo = clientService.signupProcess(clientDTO);
 		return null;
 	}
-	
 	
 
 }
