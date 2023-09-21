@@ -15,55 +15,62 @@ import com.omz.demo.board.entity.BoardEntity;
 @Repository
 public interface BoardRepository extends JpaRepository<BoardEntity, Long> {
 
-	@Query(value = "INSERT INTO board2(num, subject, reg_date, readcount, ref, re_step, re_level, content, ip, upload, member_email)"
+	/*@Query(value = "INSERT INTO board2(num, subject, reg_date, readcount, ref, re_step, re_level, content, ip, upload, member_email)"
 			+ " VALUES(board_num_seq2.nextval,:#{#entity.subject}, sysdate,0,board_num_seq2.nextval,:#{#entity.re_step}, :#{#entity.re_level},"
-			+ ":#{#entity.content}, :#{#entity.ip}, :#{#entity.upload},:memberEmail)", nativeQuery = true)
-	@Modifying
-	void findSaveNew(@Param("entity") BoardEntity entity, @Param("memberEmail") String memberEmail);
+			+ ":#{#entity.content}, :#{#entity.ip}, :#{#entity.upload},:memberEmail)", nativeQuery = true)*/
+	
+	/*@Modifying
+	void findSaveNew(@Param("entity") BoardEntity entity, @Param("memberEmail") String memberEmail);*/
 	// service에서 호출되는 메소드임 : findSaveNew
 	// :#{#entity.ip} 표시 : 객체로 넘어온거를 표현할때임
-	// nativeQuery=true : 매퍼에 햇던 쿼리 갖다 쓰려면 이거 붙여줘야 한대
+	// nativeQuery=true : 매퍼에 햇던 네이티브 쿼리 갖다 쓰려면 이거 붙여줘야 한대
 
 	//답변글 쓸때
-	@Query(value = "UPDATE board2 SET re_step = re_step + 1 WHERE ref=:ref AND re_step > :re_step", nativeQuery = true)
+	/*@Query(value = "UPDATE board2 SET re_step = re_step + 1 WHERE ref=:ref AND re_step > :re_step", nativeQuery = true)
 	@Modifying
-	void findReStepCounte(@Param("ref") long ref, @Param("re_step") long re_step);
+	void findReStepCounte(@Param("ref") long ref, @Param("re_step") long re_step);*/
 
-	@Modifying
+	/*@Modifying
 	@Query(value = "INSERT INTO board2(num, subject, reg_date, readcount, ref, re_step, re_level, content, ip, upload, member_email)"
 			+ " VALUES(board_num_seq2.nextval, :#{#entity.subject}, sysdate, 0,:#{#entity.ref},:#{#entity.re_step}, :#{#entity.re_level},"
 			+ ":#{#entity.content}, :#{#entity.ip}, :#{#entity.upload},:memberEmail)", nativeQuery = true)
-	void findSaveReply(@Param("entity") BoardEntity entity, @Param("memberEmail") String memberEmail);
+	void findSaveReply(@Param("entity") BoardEntity entity, @Param("memberEmail") String memberEmail);*/
 
-	@Query(value = "SELECT count(*) FROM board2", nativeQuery = true)
+	//여기서 findCount해주면 그 결과를 가지고 컨트롤러에서 토탈레코드 따져서 보여줄때 사용함
+	@Query(value = "SELECT count(*) FROM omzboard", nativeQuery = true)
 	long findCount();
+	
+	@Query(value = "SELECT b.*  FROM (SELECT rownum AS rm , a.* FROM ("
+			+ " SELECT o.*"
+			+ " FROM omzboard o, omz_client c"
+			+ " WHERE o.client_id=c.client_id(+)"
+			+ " ORDER BY board_ref DESC)a)b  WHERE b.rm>=:startRow AND b.rm<=:endRow", nativeQuery = true)
+	List<BoardEntity> findAllActiveOmzboardNative(@Param("startRow") long startRow, @Param("endRow") long endRow);
+	//특정범위를 조회하고 결과가 BoardEntity 객체로 반환된다는 말
 
-	@Query(value = "SELECT b.* FROM(SELECT rownum AS rm , a.* FROM(SELECT b.*, m.member_name"
-			+ " FROM board2 b, members2 m WHERE b.member_email=m.member_email(+)"
-			+ " ORDER BY ref DESC, re_step ASC)a)b" + " WHERE b.rm>=:startRow AND b.rm<=:endRow", nativeQuery = true)
-	List<BoardEntity> findAllActiveBoard2Native(@Param("startRow") long startRow, @Param("endRow") long endRow);
-
-	@Query(value = "UPDATE board2 SET readcount = readcount + 1 WHERE num=:num", nativeQuery = true)
-	@Modifying
-	void findByReadCount(@Param("num") long num);
-
-	@Query(value = "SELECT b.*, m.member_name,m.member_email FROM board2 b, members2 m WHERE b.member_email=m.member_email(+)"
-			+ " AND b.num=:num", nativeQuery = true)
-	BoardEntity findByContent(@Param("num") long num);
-
-	@Query(value = "SELECT upload FROM board2 WHERE num=:num", nativeQuery = true)
-	String findByFileNum(@Param("num") long num);
-
-//	@Query(value="UPDATE board2 SET subject=:subject,content=:content,upload=:upload"			
-//			   + " WHERE num=:num", nativeQuery=true)
-//	void findByUpdateEntity(@Param("subject") String subject, @Param("content") String content, @Param("upload") String upload, @Param("num") long num );
-
-	@Query(value = "UPDATE board2 SET subject=:#{#entity.subject},content=:#{#entity.content},upload=:#{#entity.upload}"
-			+ " WHERE num=:#{#entity.num}", nativeQuery = true)
-	@Modifying
-	void findByUpdateEntity(@Param("entity") BoardEntity entity);
-
-	@Query(value = "DELETE FROM board2 WHERE num=:num", nativeQuery = true)
-	@Modifying
-	void findDelete(@Param("num") long num);
+	 
+//
+//	@Query(value = "UPDATE board2 SET readcount = readcount + 1 WHERE num=:num", nativeQuery = true)
+//	@Modifying
+//	void findByReadCount(@Param("num") long num);
+//
+//	@Query(value = "SELECT b.*, m.member_name,m.member_email FROM board2 b, members2 m WHERE b.member_email=m.member_email(+)"
+//			+ " AND b.num=:num", nativeQuery = true)
+//	BoardEntity findByContent(@Param("num") long num);
+//
+//	@Query(value = "SELECT upload FROM board2 WHERE num=:num", nativeQuery = true)
+//	String findByFileNum(@Param("num") long num);
+//
+////	@Query(value="UPDATE board2 SET subject=:subject,content=:content,upload=:upload"			
+////			   + " WHERE num=:num", nativeQuery=true)
+////	void findByUpdateEntity(@Param("subject") String subject, @Param("content") String content, @Param("upload") String upload, @Param("num") long num );
+//
+//	@Query(value = "UPDATE board2 SET subject=:#{#entity.subject},content=:#{#entity.content},upload=:#{#entity.upload}"
+//			+ " WHERE num=:#{#entity.num}", nativeQuery = true)
+//	@Modifying
+//	void findByUpdateEntity(@Param("entity") BoardEntity entity);
+//
+//	@Query(value = "DELETE FROM board2 WHERE num=:num", nativeQuery = true)
+//	@Modifying
+//	void findDelete(@Param("num") long num);
 }

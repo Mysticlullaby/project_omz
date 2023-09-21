@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.omz.demo.members.entity.MembersEntity;
+import com.omz.demo.client.entity.ClientEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,22 +32,36 @@ import lombok.ToString;
 public class BoardEntity {
 	
 	@Id //pk
+	@Column(name="omzboard_id")
+	private long omzboardId;
+	
+	@Column(name="read_count")
+	private long readCount;
+	
+	@Column(name="board_ref")
+	private long boardRef;
+	
+	@Column(name="re_step")
+	private long reStep;
+	
+	@Column(name="re_level")
+	private long reLevel ;
+	
 	@Column
-	//@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "token_gen")
-	private long omzboard_id;
-	@Column
-	private long read_count, board_ref, re_step, re_level;
-	@Column
-	private String subject, board_content ;
-	@Column(insertable = false)
-	private Date reg_date;
+	private String subject;
+	
+	@Column(name="board_content")
+	private String boardContent ;
+	
+	@Column(name="reg_date", insertable = false)
+	private String regDate;
 
 	@Column
 	private String upload;
 	
 	@ManyToOne
-	@JoinColumn(name = "client_id")
-	private MembersEntity membersEntity;
+	@JoinColumn(name = "client_id") //fk
+	private ClientEntity clientEntity;
 
 
 

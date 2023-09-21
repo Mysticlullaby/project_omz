@@ -33,14 +33,14 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public List<BoardDTO> listProcess(PageDTO pv) {
 		System.out.printf("startRow:%d, endRow:%d\n", pv.getStartRow(), pv.getEndRow());
-		List<BoardDTO> aList = new ArrayList<>();
-		List<BoardEntity> result = boardRepository.findAllActiveBoard2Native(pv.getStartRow(), pv.getEndRow());
+		List<BoardDTO> aList = new ArrayList<>();		
+		List<BoardEntity> result = boardRepository.findAllActiveOmzboardNative(pv.getStartRow(), pv.getEndRow());
 
 		result.forEach(board -> aList.add(BoardDTO.toDto(board)));
-		return aList;
+		return aList; 
 	}
 
-	@Override
+	/*@Override
 	public void insertProcess(BoardDTO dto) {
 		System.out.printf("num:%d subject:%s\n", dto.getNum(), dto.getSubject());
 		System.out.println("dto:" + dto.getMembersDTO());
@@ -54,29 +54,30 @@ public class BoardServiceImp implements BoardService {
 		} else {
 			boardRepository.findSaveNew(BoardDTO.toEntity(dto), dto.getMembersDTO().getMemberEmail());
 		}
-	}
+	}*/
 
-	@Override
+	/*@Override
 	public BoardDTO contentProcess(long num) {
 		BoardDTO bDTO = null;
 		bDTO = BoardDTO.toDto(boardRepository.findByContent(num));
-
+	
 		return bDTO;
-	}
+	}*/
 
+	//원래 주석이엇음
 	/*	@Override
 	public BoardDTO updateSelectProcess(int num) {
 			return boardDao.content(num);
 	}*/
 
-	@Override
+	/*@Override
 	public void updateProcess(BoardDTO dto, String urlpath) {
 		String filename = dto.getUpload();
-
+	
 		String path = boardRepository.findByFileNum(dto.getNum());
 		// 수정할 파일이 있으면
 		if (filename != null) {
-
+	
 			// 기존 첨부파일이 있으면
 			if (path != null) {
 				File file = new File(urlpath, path);
@@ -85,22 +86,22 @@ public class BoardServiceImp implements BoardService {
 		} else {
 			dto.setUpload(path);
 		}
-
+	
 		// boardRepository.findByUpdateEntity(dto.getSubject(), dto.getContent(),
 		// dto.getUpload(), dto.getNum());
 		
 		boardRepository.findByUpdateEntity(BoardDTO.toEntity(dto));
-	}
+	}*/
 
-		@Override
-		public void deleteProcess(long num, String urlpath) {	
-			String path = boardRepository.findByFileNum(num);
-			if(path!=null) {
-				File file = new File(urlpath, path);
-				file.delete();
-			}
-			boardRepository.findDelete(num);
-		} 
-	
+	/*@Override
+	public void deleteProcess(long num, String urlpath) {	
+		String path = boardRepository.findByFileNum(num);
+		if(path!=null) {
+			File file = new File(urlpath, path);
+			file.delete();
+		}
+		boardRepository.findDelete(num);
+	} 
+	*/
 
 }
