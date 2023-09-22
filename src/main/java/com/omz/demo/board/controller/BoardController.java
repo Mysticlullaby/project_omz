@@ -66,7 +66,7 @@ public class BoardController {
 
 			map.put("boardList", boardService.listProcess(this.pdto));
 			//map은 (key, value)의 형태임 여기서는 value의 값을 key인 boardList에 저장하겟다는 말 / 나중에 어딘가에서 boardList 쓸텐데 어디서 쓸까....?
-			//안쓰는거 같음 그냥 key 값 필요해서 냅다 넣은 것일까?ㅎ
+			//쓰는게 아니고 여기서 지정해준 boardList랑 pv라는 이름을 리액트에서 사용하는 거임
 			map.put("pv", this.pdto);
 		}
 
