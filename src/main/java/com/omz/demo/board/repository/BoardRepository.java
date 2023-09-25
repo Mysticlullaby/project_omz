@@ -15,31 +15,31 @@ import com.omz.demo.board.entity.BoardEntity;
 @Repository
 public interface BoardRepository extends JpaRepository<BoardEntity, Long> {
 
-	/*@Query(value = "INSERT INTO board2(num, subject, reg_date, readcount, ref, re_step, re_level, content, ip, upload, member_email)"
-			+ " VALUES(board_num_seq2.nextval,:#{#entity.subject}, sysdate,0,board_num_seq2.nextval,:#{#entity.re_step}, :#{#entity.re_level},"
-			+ ":#{#entity.content}, :#{#entity.ip}, :#{#entity.upload},:memberEmail)", nativeQuery = true)*/
-	
-	/*@Modifying
-	void findSaveNew(@Param("entity") BoardEntity entity, @Param("memberEmail") String memberEmail);*/
-	// service에서 호출되는 메소드임 : findSaveNew
 	// :#{#entity.ip} 표시 : 객체로 넘어온거를 표현할때임
+	/*@Query(value = "INSERT INTO omzboard(omzboardId, subject, regDate, readCount, boardRef, reStep, reLevel, boardContent, upload, clientId)"
+			+ " VALUES(omzboard_num_seq.nextval,:#{#entity.subject}, sysdate, 0, omzboard_num_seq.nextval,:#{#entity.reStep}, :#{#entity.reLevel},"
+			+ ":#{#entity.boardContent}, :#{#entity.upload}), :clientId ", nativeQuery = true)
+	@Modifying
+	void findSaveNew(@Param("entity") BoardEntity entity, @Param("clientId") String clientId);*/
+	// service에서 호출되는 메소드임 : findSaveNew
 	// nativeQuery=true : 매퍼에 햇던 네이티브 쿼리 갖다 쓰려면 이거 붙여줘야 한대
 
 	//답변글 쓸때
-	/*@Query(value = "UPDATE board2 SET re_step = re_step + 1 WHERE ref=:ref AND re_step > :re_step", nativeQuery = true)
+	@Query(value = "UPDATE omzboard SET reStep = reStep + 1 WHERE boardRef=:boardRef AND reStep > :reStep", nativeQuery = true)
 	@Modifying
-	void findReStepCounte(@Param("ref") long ref, @Param("re_step") long re_step);*/
+	void findReStepCount(@Param("boardRef") long boardRef, @Param("reStep") long reStep);
 
-	/*@Modifying
-	@Query(value = "INSERT INTO board2(num, subject, reg_date, readcount, ref, re_step, re_level, content, ip, upload, member_email)"
-			+ " VALUES(board_num_seq2.nextval, :#{#entity.subject}, sysdate, 0,:#{#entity.ref},:#{#entity.re_step}, :#{#entity.re_level},"
-			+ ":#{#entity.content}, :#{#entity.ip}, :#{#entity.upload},:memberEmail)", nativeQuery = true)
-	void findSaveReply(@Param("entity") BoardEntity entity, @Param("memberEmail") String memberEmail);*/
+	@Modifying
+	@Query(value ="INSERT INTO omzboard(omzboardId, subject, regDate, readCount, boardRef, reStep, reLevel, boardContent, upload, clientId)"
+			+ " VALUES(omzboard_num_seq.nextval,:#{#entity.subject}, sysdate, 0, omzboard_num_seq.nextval,:#{#entity.reStep}, :#{#entity.reLevel},"
+			+ ":#{#entity.boardContent}, :#{#entity.upload},:clientId)", nativeQuery = true)
+	void findSaveReply(@Param("entity") BoardEntity entity, @Param("clientId") String clientId);
 
 	//여기서 findCount해주면 그 결과를 가지고 컨트롤러에서 토탈레코드 따져서 보여줄때 사용함
 	@Query(value = "SELECT count(*) FROM omzboard", nativeQuery = true)
 	long findCount();
 	
+	//보드리스트 출력
 	@Query(value = "SELECT b.*  FROM (SELECT rownum AS rm , a.* FROM ("
 			+ " SELECT o.*"
 			+ " FROM omzboard o, omz_client c"

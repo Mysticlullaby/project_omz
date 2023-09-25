@@ -40,21 +40,23 @@ public class BoardServiceImp implements BoardService {
 		return aList; 
 	}
 
-	/*@Override
+	@Override
 	public void insertProcess(BoardDTO dto) {
-		System.out.printf("num:%d subject:%s\n", dto.getNum(), dto.getSubject());
-		System.out.println("dto:" + dto.getMembersDTO());
+		System.out.printf("board_id:%d subject:%s\n", dto.getOmzboardId(), dto.getSubject());
+		System.out.println("dto:" + dto.getClientDTO());
 		BoardEntity entity = BoardDTO.toEntity(dto);
+		
 		// 답변글이면
-		if (dto.getRef() != 0) {
-			boardRepository.findReStepCounte(entity.getRef(), entity.getRe_step());
-			dto.setRe_step(dto.getRe_step() + 1);
-			dto.setRe_level(dto.getRe_level() + 1);
-			boardRepository.findSaveReply(BoardDTO.toEntity(dto), dto.getMembersDTO().getMemberEmail());
+		if (dto.getBoardRef() != 0) {
+			boardRepository.findReStepCount(entity.getBoardRef(), entity.getReStep());
+			dto.setReStep(dto.getReStep() + 1);
+			dto.setReLevel(dto.getReLevel() + 1);
+			boardRepository.findSaveReply(BoardDTO.toEntity(dto), dto.getClientDTO().getClientId());
 		} else {
-			boardRepository.findSaveNew(BoardDTO.toEntity(dto), dto.getMembersDTO().getMemberEmail());
+//			boardRepository.findSaveNew(BoardDTO.toEntity(dto), dto.getClientDTO().getClientId());
+			boardRepository.save(entity);
 		}
-	}*/
+	}
 
 	/*@Override
 	public BoardDTO contentProcess(long num) {

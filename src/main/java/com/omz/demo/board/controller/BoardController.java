@@ -42,9 +42,9 @@ public class BoardController {
 	@Autowired // 다오임프나 서비스임프 빈 선언 해줬던부분 이거 하나로 퉁쳐짐
 	private BoardService boardService;
 
-	/*@Value("${spring.servlet.multipart.location}")
+	@Value("${spring.servlet.multipart.location}")
 	// application.properites에 보면 파일 업로드 경로 설정 해준부분 있는데 그 위치로 가겠다고 지정해주는 부분
-	private String filePath;*/
+	private String filePath;
 
 	@Autowired
 	private PageDTO pdto;
@@ -79,7 +79,7 @@ public class BoardController {
 	// @RequestParam : /board/list?num=value => /board/list?num=1 => /board/list
 	// multipart/form-data : @RequestBody선언없이 그냥 받음 BoardDTO dto
 
-	/*@PostMapping("/board/write")
+	@PostMapping("/board/write")
 	public String writeProExcute(BoardDTO dto, PageDTO pv, HttpServletRequest req, HttpSession session) {
 		MultipartFile file = dto.getFilename();
 	
@@ -92,17 +92,15 @@ public class BoardController {
 		}
 	
 		//
-		if (req.getParameter("memberEmail") != null) {
-			dto.getMembersDTO().setMemberEmail(req.getParameter("memberEmail"));
-			dto.getMembersDTO().setMemberName(req.getParameter("memberName"));
+		if (req.getParameter("client_id") != null) {
+			dto.getClientDTO().setClientId(null);
+			dto.getClientDTO().setClientId(req.getParameter("clientName"));
 		}
-	
-		dto.setIp(req.getRemoteAddr());
 	
 		boardService.insertProcess(dto);
 	
 		// 답변글이면
-		if (dto.getRef() != 0)
+		if (dto.getBoardRef() != 0)
 	
 		{
 			// ratt.addAttribute("currentPage", pv.getCurrentPage());
@@ -112,7 +110,7 @@ public class BoardController {
 		}
 	
 		// return "redirect:/board/list.do";
-	}*/
+	}
 
 	/*@GetMapping("/board/view/{num}")
 	public BoardDTO viewExecute(@PathVariable("num") int num) {

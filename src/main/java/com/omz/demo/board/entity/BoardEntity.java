@@ -32,19 +32,19 @@ import lombok.ToString;
 public class BoardEntity {
 	
 	@Id //pk
-	@Column(name="omzboard_id")
+	@Column(insertable = false)
 	private long omzboardId;
 	
-	@Column(name="read_count")
+	@Column(insertable = false)
 	private long readCount;
 	
-	@Column(name="board_ref")
+	@Column(insertable = false)
 	private long boardRef;
 	
-	@Column(name="re_step")
+	@Column(insertable = false)
 	private long reStep;
 	
-	@Column(name="re_level")
+	@Column(insertable = false)
 	private long reLevel ;
 	
 	@Column
@@ -56,11 +56,11 @@ public class BoardEntity {
 	@Column(name="reg_date", insertable = false)
 	private String regDate;
 
-	@Column
+	@Column(insertable = false)
 	private String upload;
 	
 	@ManyToOne
-	@JoinColumn(name = "client_id") //fk
+	@JoinColumn(name = "client_id", insertable = false) //fk
 	private ClientEntity clientEntity;
 
 
