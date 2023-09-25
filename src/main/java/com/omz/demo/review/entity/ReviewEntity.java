@@ -1,9 +1,17 @@
 package com.omz.demo.review.entity;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,10 +26,16 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@SequenceGenerator(
+name="review_num_gen", 
+sequenceName = "review_num_seq",
+initialValue = 1,
+allocationSize = 1)
 public class ReviewEntity {
 	
 	@Id
 	@Column(name="review_id")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "review_num_gen")
 	private long reviewId;
 	
 	@Column(name="movie_id")
@@ -36,8 +50,13 @@ public class ReviewEntity {
 	@Column
 	private long rating;
 	
+	@CreationTimestamp
 	@Column(name="reg_date")
-	private String regDate;
+	private LocalDateTime regDate = LocalDateTime.now();
+	
+	@UpdateTimestamp
+	@Column(name="edit_date")
+	private LocalDateTime editDate = LocalDateTime.now();
 	
 	
 }

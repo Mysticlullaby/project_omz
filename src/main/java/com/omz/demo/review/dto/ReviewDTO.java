@@ -1,5 +1,7 @@
 package com.omz.demo.review.dto;
 
+import java.time.LocalDateTime;
+
 import com.omz.demo.review.entity.ReviewEntity;
 
 import lombok.AllArgsConstructor;
@@ -14,7 +16,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class ReviewDTO {
-//	review_id      NUMBER NOT NULL,
+//	  review_id      NUMBER NOT NULL,
 //    movie_id       NUMBER NOT NULL,
 //    client_id      VARCHAR2(64) NOT NULL,
 //    review_content VARCHAR2(1024),
@@ -25,7 +27,8 @@ public class ReviewDTO {
 	private String clientId;
 	private String reviewContent;
 	private long rating;
-	private String regDate;
+	private LocalDateTime regDate;
+	private LocalDateTime editDate;
 	
 	public static ReviewEntity toEntity(ReviewDTO dto) {
 		return ReviewEntity.builder()
@@ -35,11 +38,20 @@ public class ReviewDTO {
 				.reviewContent(dto.getReviewContent())
 				.rating(dto.getRating())
 				.regDate(dto.getRegDate())
+				.editDate(dto.getEditDate())
 				.build();
 	}
 	
 	public static ReviewDTO toDto(ReviewEntity entity) {
-		return null;
+		return ReviewDTO.builder()
+				.reviewId(entity.getReviewId())
+				.movieId(entity.getMovieId())
+				.clientId(entity.getClientId())
+				.reviewContent(entity.getReviewContent())
+				.rating(entity.getRating())
+				.regDate(entity.getRegDate())
+				.editDate(entity.getEditDate())
+				.build();
 	}
 
 }
