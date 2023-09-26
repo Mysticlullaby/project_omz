@@ -54,6 +54,6 @@ public class ClientEntity {
 	private String regDate;
 
 	@Column
-	private String grade ; // 회원 구분용
+	private String grade; // 회원 구분용
 
 }
