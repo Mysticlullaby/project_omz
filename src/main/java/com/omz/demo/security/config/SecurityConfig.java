@@ -9,9 +9,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import com.omz.demo.client.repository.ClientRepository;
+import com.omz.demo.security.jwt.JwtAuthenticationFilter;
+import com.omz.demo.security.jwt.JwtAutorizationFilter;
 import com.omz.demo.security.service.CorsConfig;
 
 @Configuration
@@ -22,10 +25,10 @@ public class SecurityConfig {
 	@Autowired
 	private ClientRepository clientRepository;
 	
-//	@Bean
-//	public BCryptPasswordEncoder encodePassword() {
-//	return new BCryptPasswordEncoder();
-//}
+	@Bean
+	public BCryptPasswordEncoder encodePassword() {
+		return new BCryptPasswordEncoder();
+}
 	
 	@Autowired
 	private CorsConfig corsConfig;
@@ -38,11 +41,11 @@ public class SecurityConfig {
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.apply(new MyCustomerFilter());
 		http.authorizeHttpRequests()
-		.antMatchers("/", "/login", "/client/signup")
+		.antMatchers("/", "/login", "/signup", "/movie/**")
 		.permitAll() // 로그인 없이 접근 허용
 		.anyRequest().authenticated(); // 그외 모든 요청에 대해서 인증(로그인)이 필요
 		
-		return http.build();		
+		return http.build();
 	}
 	
 	public class MyCustomerFilter extends AbstractHttpConfigurer<MyCustomerFilter, HttpSecurity> {
@@ -50,8 +53,8 @@ public class SecurityConfig {
 		public void configure(HttpSecurity http) throws Exception {
 			AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);
 			http.addFilter(corsConfig.corsFilter()); // @CrossOrigin(인증 X), Security Filter에 등록 인증(O)
-//			http.addFilter(new )// 인증 필터 등록
-		
+			http.addFilter(new JwtAuthenticationFilter(authenticationManager))// 인증 필터 등록
+					.addFilter(new JwtAutorizationFilter(authenticationManager, clientRepository));
 		}
 	}	
 
