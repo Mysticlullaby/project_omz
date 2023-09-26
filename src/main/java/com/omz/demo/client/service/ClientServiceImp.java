@@ -9,6 +9,8 @@ import com.omz.demo.client.dto.ClientDTO;
 import com.omz.demo.client.entity.ClientEntity;
 import com.omz.demo.client.repository.ClientRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
 @Transactional
 public class ClientServiceImp implements ClientService{
@@ -19,22 +21,18 @@ public class ClientServiceImp implements ClientService{
 	public ClientServiceImp() {
 	}
 	
-	//signup
-		public AuthInfo signupProcess(ClientDTO dto) {
-			ClientEntity entity = ClientDTO.toEntity(dto);
-//			System.out.println(entity.getClientId() + ", " + entity.getClientName());
-			clientRepository.save(entity);
-			return new AuthInfo(dto.getClientId(), dto.getClientPass());
-		}
+	// signup
+	public AuthInfo signupProcess(ClientDTO dto) {
+		ClientEntity entity = ClientDTO.toEntity(dto);
+		clientRepository.save(entity);
+		return new AuthInfo(dto.getClientId(), dto.getClientPass());
+	}
 
-	//login
+	// login
 	public AuthInfo loginProcess(ClientDTO dto) {
 		ClientEntity clientEntity = clientRepository.findByClientId(dto.getClientId());
-		ClientDTO clientDTO = ClientDTO.toDto(clientEntity);
-		System.out.println(dto.getClientId() + ", " + dto.getClientName());
+//		ClientDTO clientDTO = ClientDTO.toDto(clientEntity);
 		return new AuthInfo(clientEntity.getClientId(), clientEntity.getClientPass());
 	}
-	
-	
 
 }

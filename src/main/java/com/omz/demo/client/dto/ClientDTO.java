@@ -26,8 +26,7 @@ public class ClientDTO {
 	private String mbti;
 	private String regDate;
 	private String grade; // 회원, 관리자 구분용
-	private String authRole;
-	
+	private String authRole;	
 
 	public static ClientEntity toEntity(ClientDTO dto) {
 		return ClientEntity.builder()

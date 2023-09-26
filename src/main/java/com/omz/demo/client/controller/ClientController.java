@@ -30,9 +30,8 @@ public class ClientController {
 	@PostMapping("/signup")
 	public String signup(@RequestBody ClientDTO clientDTO) {
 		clientDTO.setClientPass(encodePassword.encode(clientDTO.getClientPass()));
-		AuthInfo authInfo = clientService.signupProcess(clientDTO);
+		clientService.signupProcess(clientDTO);
 		return null;
 	}
 	
-
 }

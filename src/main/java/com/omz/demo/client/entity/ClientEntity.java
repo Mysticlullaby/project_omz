@@ -38,7 +38,7 @@ public class ClientEntity {
 	@Column
 	private String phone;
 
-	@Column
+	@Column // (unique = true)
 	private String email;
 
 	@Column

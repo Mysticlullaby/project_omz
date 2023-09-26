@@ -28,22 +28,23 @@ public class SecurityConfig {
 	@Bean
 	public BCryptPasswordEncoder encodePassword() {
 		return new BCryptPasswordEncoder();
-}
+	}
 	
 	@Autowired
 	private CorsConfig corsConfig;
 	
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.csrf().disable();
+
+        http.csrf().disable();
 		http.formLogin().disable();
 		http.httpBasic().disable();
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.apply(new MyCustomerFilter());
 		http.authorizeHttpRequests()
-		.antMatchers("/", "/login", "/client/signup", "/movie/**", "/review/write")
-		.permitAll() // 로그인 없이 접근 허용
-		.anyRequest().authenticated(); // 그외 모든 요청에 대해서 인증(로그인)이 필요
+		.antMatchers("/", "/login", "/signup", "/movie/**", "/review/write")// 인증(로그인)이 필요한 페이지 설정
+		.permitAll() // 로그인 없이 접근 허용한다.
+		.anyRequest().authenticated(); // 그외 모든 요청에 대해서 인증(로그인)이 되어야 허용한다.
 		
 		return http.build();
 	}
@@ -56,6 +57,7 @@ public class SecurityConfig {
 			http.addFilter(new JwtAuthenticationFilter(authenticationManager))// 인증 필터 등록
 					.addFilter(new JwtAutorizationFilter(authenticationManager, clientRepository));
 		}
-	}	
+
+	}
 
 }
