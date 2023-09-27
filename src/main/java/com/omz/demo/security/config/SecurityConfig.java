@@ -34,7 +34,9 @@ public class SecurityConfig {
 	private CorsConfig corsConfig;
 	
 	@Bean
-	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+	// 사용자 요청을 받아 위임하면서 찾게 되는게 SecurityFilterChain(FilterChainProxy)이며, 
+	// 위임받은 요청을 각각의 Filter에게 순서대로 요청하는데 각각의 필터가 체인으로 연결되어 수행>넘김>수행>넘김으로 진행되며 이때 수행되는 메소드가 doFilter
+	SecurityFilterChain filterChain(HttpSecurity http) throws Exception { // 실제 필터를 생성하는 클래스 HttpSecurity
 
         http.csrf().disable();
 		http.formLogin().disable();

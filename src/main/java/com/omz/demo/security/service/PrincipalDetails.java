@@ -26,6 +26,7 @@ public class PrincipalDetails implements UserDetails {
 		return clientDTO;
 	}
 
+	// 해당 user의 권한을 리턴하는 곳
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 
