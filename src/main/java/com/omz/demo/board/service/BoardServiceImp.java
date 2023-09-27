@@ -13,7 +13,6 @@ import com.omz.demo.board.dto.PageDTO;
 import com.omz.demo.board.entity.BoardEntity;
 import com.omz.demo.board.repository.BoardRepository;
 
-
 @Service
 @Transactional
 public class BoardServiceImp implements BoardService {
@@ -27,46 +26,49 @@ public class BoardServiceImp implements BoardService {
 
 	@Override
 	public long countProcess() {
-		return boardRepository.findCount();
+//		System.out.println("record:"+boardRepository.findCount());
+//		return boardRepository.findCount();
+		return boardRepository.count();
 	}
 
 	@Override
 	public List<BoardDTO> listProcess(PageDTO pv) {
 		System.out.printf("startRow:%d, endRow:%d\n", pv.getStartRow(), pv.getEndRow());
-		List<BoardDTO> aList = new ArrayList<>();		
+		List<BoardDTO> aList = new ArrayList<>();
 		List<BoardEntity> result = boardRepository.findAllActiveOmzboardNative(pv.getStartRow(), pv.getEndRow());
 
 		result.forEach(board -> aList.add(BoardDTO.toDto(board)));
-		return aList; 
+		return aList;
 	}
 
 	@Override
 	public void insertProcess(BoardDTO dto) {
-		System.out.printf("board_id:%d subject:%s\n", dto.getOmzboardId(), dto.getSubject());
-		System.out.println("dto:" + dto.getClientDTO());
+		System.out.printf("ClientId:%s subject:%s\n", dto.getClientId(), dto.getSubject());
 		BoardEntity entity = BoardDTO.toEntity(dto);
-		
+
 		// 답변글이면
 		if (dto.getBoardRef() != 0) {
 			boardRepository.findReStepCount(entity.getBoardRef(), entity.getReStep());
 			dto.setReStep(dto.getReStep() + 1);
 			dto.setReLevel(dto.getReLevel() + 1);
-			boardRepository.findSaveReply(BoardDTO.toEntity(dto), dto.getClientDTO().getClientId());
+//			boardRepository.save(entity);
+			boardRepository.findSaveReply(BoardDTO.toEntity(dto), dto.getClientId());
 		} else {
-//			boardRepository.findSaveNew(BoardDTO.toEntity(dto), dto.getClientDTO().getClientId());
-			boardRepository.save(entity);
+
+			boardRepository.findSaveNew(BoardDTO.toEntity(dto), dto.getClientId());
+//			boardRepository.save(entity);
 		}
 	}
 
-	/*@Override
-	public BoardDTO contentProcess(long num) {
+	@Override
+	public BoardDTO contentProcess(long omzboardId) {
 		BoardDTO bDTO = null;
-		bDTO = BoardDTO.toDto(boardRepository.findByContent(num));
-	
+//		bDTO = BoardDTO.toDto(boardRepository.findByContent(omzboardId));
+		bDTO = boardRepository.findAll();
 		return bDTO;
-	}*/
+	}
 
-	//원래 주석이엇음
+	// 원래 주석이엇음
 	/*	@Override
 	public BoardDTO updateSelectProcess(int num) {
 			return boardDao.content(num);

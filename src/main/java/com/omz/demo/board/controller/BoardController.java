@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -48,6 +49,7 @@ public class BoardController {
 
 	@Autowired
 	private PageDTO pdto;
+	
 	private int currentPage;
 
 	public BoardController() {
@@ -59,17 +61,20 @@ public class BoardController {
 	public Map<String, Object> listExecute(@PathVariable("currentPage") int currentPage, PageDTO pv) {
 		Map<String, Object> map = new HashMap<>();
 		long totalRecord = boardService.countProcess();
+//		System.out.println("total:"+totalRecord);
+
+		map.put("totalRecord", totalRecord);
 		if (totalRecord >= 1) {
 			this.currentPage = currentPage;
-
 			this.pdto = new PageDTO(this.currentPage, totalRecord);
 
 			map.put("boardList", boardService.listProcess(this.pdto));
-			//map은 (key, value)의 형태임 여기서는 value의 값을 key인 boardList에 저장하겟다는 말 / 나중에 어딘가에서 boardList 쓸텐데 어디서 쓸까....?
-			//쓰는게 아니고 여기서 지정해준 boardList랑 pv라는 이름을 리액트에서 사용하는 거임
+//			System.out.println("controller:"+boardService.listProcess(this.pdto));
+			// map은 (key, value)의 형태임 여기서는 value의 값을 key인 boardList에 저장하겟다는 말 / 나중에 어딘가에서
+			// boardList 쓸텐데 어디서 쓸까....?
+			// 쓰는게 아니고 여기서 지정해준 boardList랑 pv라는 이름을 리액트에서 사용하는 거임
 			map.put("pv", this.pdto);
 		}
-
 		return map;
 	} // end listExecute()
 
@@ -82,40 +87,29 @@ public class BoardController {
 	@PostMapping("/board/write")
 	public String writeProExcute(BoardDTO dto, PageDTO pv, HttpServletRequest req, HttpSession session) {
 		MultipartFile file = dto.getFilename();
-	
-		// System.out.println(dto.getMembersDTO().getMemberName());
-	
+		
+		System.out.println("clientid:"+dto.getClientId());
 		// 파일 첨부가 있으면...
 		if (file != null && !file.isEmpty()) {
 			UUID random = FileUpload.saveCopyFile(file, filePath);
 			dto.setUpload(random + "_" + file.getOriginalFilename());
 		}
-	
-		//
-		if (req.getParameter("client_id") != null) {
-			dto.getClientDTO().setClientId(null);
-			dto.getClientDTO().setClientId(req.getParameter("clientName"));
-		}
-	
+
 		boardService.insertProcess(dto);
-	
+
 		// 답변글이면
-		if (dto.getBoardRef() != 0)
-	
-		{
-			// ratt.addAttribute("currentPage", pv.getCurrentPage());
+		if (dto.getBoardRef() != 0) {
 			return String.valueOf(pv.getCurrentPage());
 		} else {
 			return String.valueOf(1);
 		}
-	
-		// return "redirect:/board/list.do";
+
 	}
 
-	/*@GetMapping("/board/view/{num}")
-	public BoardDTO viewExecute(@PathVariable("num") int num) {
-		return boardService.contentProcess(num);
-	}*/
+	@GetMapping("/board/view/{omzboardId}")
+	public BoardDTO viewExecute(@PathVariable("omzboardId") long omzboardId) {
+		return boardService.contentProcess(omzboardId);
+	}
 
 	/*@PutMapping("/board/update")
 	public void updateExecute(BoardDTO dto, HttpServletRequest request) throws IllegalStateException, IOException {

@@ -1,6 +1,7 @@
 package com.omz.demo.board.entity;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,40 +30,49 @@ import lombok.ToString;
 @NoArgsConstructor //파라미터 없는 생성자 자동생성
 @AllArgsConstructor //모든 멤버변수 제공
 @Builder
+//@SequenceGenerator(
+//name = "token_gen",
+//sequenceName = "omzboard_num_seq",
+//initialValue = 1, 
+//allocationSize = 1)
+
 public class BoardEntity {
 	
 	@Id //pk
-	@Column(insertable = false)
+	@Column(name = "omzboard_id")
+//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "token_gen")
 	private long omzboardId;
 	
-	@Column(insertable = false)
+	@Column(name = "client_id")
+	private String clientId;
+	
+	@Column(name = "read_count", insertable = false)
 	private long readCount;
 	
-	@Column(insertable = false)
+	@Column(name = "board_ref")
 	private long boardRef;
 	
-	@Column(insertable = false)
+	@Column(name = "re_step", insertable = false)
 	private long reStep;
 	
-	@Column(insertable = false)
-	private long reLevel ;
+	@Column(name = "re_level", insertable = false)
+	private long reLevel;
 	
-	@Column
+	@Column(name = "subject")
 	private String subject;
 	
-	@Column(name="board_content")
+	@Column(name = "board_content")
 	private String boardContent ;
 	
-	@Column(name="reg_date", insertable = false)
-	private String regDate;
+	@Column(name = "reg_date", insertable = false)
+	private LocalDateTime regDate;
+	
+	@Column(name = "edit_date", insertable = false)
+	private LocalDateTime editDate;
 
-	@Column(insertable = false)
+	@Column(name = "upload")
 	private String upload;
 	
-	@ManyToOne
-	@JoinColumn(name = "client_id", insertable = false) //fk
-	private ClientEntity clientEntity;
-
-
+	
 
 }
