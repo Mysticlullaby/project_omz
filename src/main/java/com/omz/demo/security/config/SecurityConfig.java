@@ -44,7 +44,7 @@ public class SecurityConfig {
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.apply(new MyCustomerFilter());
 		http.authorizeHttpRequests()
-		.antMatchers("/", "/login", "/signup", "/movie/**", "/review/write")// 인증(로그인)이 필요한 페이지 설정
+		.antMatchers("/", "/login", "/signup", "/update", "/editinfo/**", "/movie/**", "/review/write")// 인증(로그인)이 필요한 페이지 설정
 		.permitAll() // 로그인 없이 접근 허용한다.
 		.anyRequest().authenticated(); // 그외 모든 요청에 대해서 인증(로그인)이 되어야 허용한다.
 		
