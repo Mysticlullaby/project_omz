@@ -1,11 +1,11 @@
 package com.omz.demo.review.controller;
 
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,5 +30,21 @@ public class ReviewController {
 	public List<ReviewDTO> listExecute(@PathVariable("movieId") long movieId){
 		return reviewService.listProcess(movieId);
 	}
-
+	
+	@GetMapping("/review/page/{movieId}/{currentPage}")
+	public Map<String, Object> pageExecute(@PathVariable("movieId") long movieId, @PathVariable("currentPage") long currentPage){
+		System.out.println("movieId for review: " + movieId);
+		System.out.println("currentPage: " + currentPage);
+		return reviewService.pageProcess(movieId, currentPage);		
+	}
+	
+	@GetMapping("/review/detail/{reviewId}")
+	public ReviewDTO getExecute(@PathVariable("reviewId") long reviewId) {
+		return reviewService.getProcess(reviewId);
+	}
+	
+	@DeleteMapping("/review/delete/{reviewId}")
+	public void deleteExecute(@PathVariable("reviewId") long reviewId) {
+		reviewService.deleteProcess(reviewId);
+	}
 }
