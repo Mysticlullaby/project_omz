@@ -14,6 +14,7 @@ public interface BoardService {
 
 	public BoardDTO contentProcess(long omzboardId); // 게시물 상세보기
 	
-//	public void updateProcess(BoardDTO dto, String urlpath);
+	public void updateProcess(BoardDTO dto, String urlpath);
+	
 //	public void deleteProcess(long num, String urlpath);
 }

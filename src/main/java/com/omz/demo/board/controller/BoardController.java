@@ -69,7 +69,7 @@ public class BoardController {
 			this.pdto = new PageDTO(this.currentPage, totalRecord);
 
 			map.put("boardList", boardService.listProcess(this.pdto));
-//			System.out.println("controller:"+boardService.listProcess(this.pdto));
+			// System.out.println("controller:"+boardService.listProcess(this.pdto));
 			// map은 (key, value)의 형태임 여기서는 value의 값을 key인 boardList에 저장하겟다는 말 / 나중에 어딘가에서
 			// boardList 쓸텐데 어디서 쓸까....?
 			// 쓰는게 아니고 여기서 지정해준 boardList랑 pv라는 이름을 리액트에서 사용하는 거임
@@ -106,12 +106,13 @@ public class BoardController {
 
 	}
 
-	@GetMapping("/board/view/{omzboardId}")
-	public BoardDTO viewExecute(@PathVariable("omzboardId") long omzboardId) {
+	@GetMapping("/board/view/{omzboard_id}")
+	public BoardDTO viewExecute(@PathVariable("omzboard_id") long omzboardId) {
 		return boardService.contentProcess(omzboardId);
 	}
 
-	/*@PutMapping("/board/update")
+	
+	@PutMapping("/board/update")
 	public void updateExecute(BoardDTO dto, HttpServletRequest request) throws IllegalStateException, IOException {
 	
 		MultipartFile file = dto.getFilename();
@@ -122,7 +123,7 @@ public class BoardController {
 			file.transferTo(new File(random + "_" + file.getOriginalFilename()));
 		}
 		boardService.updateProcess(dto, filePath);
-	}*/
+	}
 
 	/*@DeleteMapping("/board/delete/{num}")
 	public void deleteExecute(@PathVariable("num") long num, HttpServletRequest request) {

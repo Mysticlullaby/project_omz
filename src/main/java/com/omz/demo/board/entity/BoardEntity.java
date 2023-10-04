@@ -46,16 +46,16 @@ public class BoardEntity {
 	@Column(name = "client_id")
 	private String clientId;
 	
-	@Column(name = "read_count", insertable = false)
+	@Column(name = "read_count")
 	private long readCount;
 	
 	@Column(name = "board_ref")
 	private long boardRef;
 	
-	@Column(name = "re_step", insertable = false)
+	@Column(name = "re_step")
 	private long reStep;
 	
-	@Column(name = "re_level", insertable = false)
+	@Column(name = "re_level")
 	private long reLevel;
 	
 	@Column(name = "subject")
@@ -64,10 +64,10 @@ public class BoardEntity {
 	@Column(name = "board_content")
 	private String boardContent ;
 	
-	@Column(name = "reg_date", insertable = false)
+	@Column(name = "reg_date")
 	private LocalDateTime regDate;
 	
-	@Column(name = "edit_date", insertable = false)
+	@Column(name = "edit_date")
 	private LocalDateTime editDate;
 
 	@Column(name = "upload")

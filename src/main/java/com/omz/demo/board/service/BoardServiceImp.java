@@ -62,10 +62,12 @@ public class BoardServiceImp implements BoardService {
 
 	@Override
 	public BoardDTO contentProcess(long omzboardId) {
+		System.out.println(omzboardId);
 		BoardDTO bDTO = null;
-//		bDTO = BoardDTO.toDto(boardRepository.findByContent(omzboardId));
-		bDTO = boardRepository.findAll();
+		bDTO = BoardDTO.toDto(boardRepository.findByOmzboardId(omzboardId));
+		
 		return bDTO;
+		
 	}
 
 	// 원래 주석이엇음
@@ -74,14 +76,14 @@ public class BoardServiceImp implements BoardService {
 			return boardDao.content(num);
 	}*/
 
-	/*@Override
+	@Override
 	public void updateProcess(BoardDTO dto, String urlpath) {
 		String filename = dto.getUpload();
 	
-		String path = boardRepository.findByFileNum(dto.getNum());
+		String path = boardRepository.findByFileNum(dto.getOmzboardId());
 		// 수정할 파일이 있으면
-		if (filename != null) {
-	
+		/*if (filename != null) {
+		
 			// 기존 첨부파일이 있으면
 			if (path != null) {
 				File file = new File(urlpath, path);
@@ -89,13 +91,13 @@ public class BoardServiceImp implements BoardService {
 			}
 		} else {
 			dto.setUpload(path);
-		}
+		}*/
 	
 		// boardRepository.findByUpdateEntity(dto.getSubject(), dto.getContent(),
 		// dto.getUpload(), dto.getNum());
 		
 		boardRepository.findByUpdateEntity(BoardDTO.toEntity(dto));
-	}*/
+	}
 
 	/*@Override
 	public void deleteProcess(long num, String urlpath) {	

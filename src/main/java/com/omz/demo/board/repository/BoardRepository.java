@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.omz.demo.board.entity.BoardEntity;
+import com.omz.demo.movie.entity.MovieEntity;
 
 @Repository
 public interface BoardRepository extends JpaRepository<BoardEntity, Long> {
@@ -73,28 +74,20 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Long> {
 //	@Modifying
 //	void findByReadCount(@Param("omzboardId") long omzboardId);
 
+	// 세부페이지 출력
+	BoardEntity findByOmzboardId(@Param("omzboardId") long omzboardId);
 	
-//	@Query(value = "SELECT b.*, m.member_name,m.member_email FROM board2 b, members2 m WHERE b.member_email=m.member_email(+)"
-//			+ " AND b.num=:num", nativeQuery = true)
-	
-	/*@Query(value = "SELECT b.*, m.member_name,m.member_email FROM board2 b, members2 m WHERE b.member_email=m.member_email(+)"
-			+ " AND b.num=:num", nativeQuery = true)
-	BoardEntity findByContent(@Param("omzboardId") long omzboardId);*/
-	
-//	@Query(value = "", nativeQuery = true)
-//	BoardEntity findByContent(@Param("omzboardId") long omzboardId);
-	
-//	@Query(value = "SELECT upload FROM board2 WHERE num=:num", nativeQuery = true)
-//	String findByFileNum(@Param("num") long num);
+	@Query(value = "SELECT upload FROM omzboard WHERE omzboard_id=:omzboardId", nativeQuery = true)
+	String findByFileNum(@Param("omzboardId") long omzboardId);
 //
-////	@Query(value="UPDATE board2 SET subject=:subject,content=:content,upload=:upload"			
-////			   + " WHERE num=:num", nativeQuery=true)
-////	void findByUpdateEntity(@Param("subject") String subject, @Param("content") String content, @Param("upload") String upload, @Param("num") long num );
-//
-//	@Query(value = "UPDATE board2 SET subject=:#{#entity.subject},content=:#{#entity.content},upload=:#{#entity.upload}"
-//			+ " WHERE num=:#{#entity.num}", nativeQuery = true)
-//	@Modifying
-//	void findByUpdateEntity(@Param("entity") BoardEntity entity);
+//	@Query(value="UPDATE board2 SET subject=:subject,content=:content,upload=:upload"			
+//			   + " WHERE num=:num", nativeQuery=true)
+//	void findByUpdateEntity(@Param("subject") String subject, @Param("content") String content, @Param("upload") String upload, @Param("num") long num );
+
+	@Query(value = "UPDATE omzboard SET subject=:#{#entity.subject}, board_content=:#{#entity.boardContent}, upload=:#{#entity.upload}"
+			+ " WHERE omzboard_id=:#{#entity.omzboardId}", nativeQuery = true)
+	@Modifying
+	void findByUpdateEntity(@Param("entity") BoardEntity entity);
 //
 //	@Query(value = "DELETE FROM board2 WHERE num=:num", nativeQuery = true)
 //	@Modifying

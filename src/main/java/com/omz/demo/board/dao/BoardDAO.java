@@ -1,4 +1,4 @@
-package com.omz.demo.board.dao;
+/*package com.omz.demo.board.dao;
 
 import java.util.List;
 
@@ -29,3 +29,4 @@ public interface BoardDAO {
 
 	public String getFile(int num);
 }
+*/
