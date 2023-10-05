@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.omz.demo.review.dto.ReviewDTO;
@@ -40,11 +41,19 @@ public class ReviewController {
 	
 	@GetMapping("/review/detail/{reviewId}")
 	public ReviewDTO getExecute(@PathVariable("reviewId") long reviewId) {
-		return reviewService.getProcess(reviewId);
+		ReviewDTO data = reviewService.getProcess(reviewId);
+		System.out.println("sending reviewDetail data: " + data);
+		return data;
 	}
 	
 	@DeleteMapping("/review/delete/{reviewId}")
 	public void deleteExecute(@PathVariable("reviewId") long reviewId) {
 		reviewService.deleteProcess(reviewId);
+	}
+	
+	@PutMapping("/review/update")
+	public void updateExecute(ReviewDTO dto) {
+		System.out.println("movieId from ReviewDTO in updateExecute: " + dto.getMovieId());
+		reviewService.saveProcess(dto);
 	}
 }
