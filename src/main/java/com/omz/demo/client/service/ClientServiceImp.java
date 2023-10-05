@@ -27,11 +27,16 @@ public class ClientServiceImp implements ClientService{
 		clientRepository.save(entity);
 		return new AuthInfo(dto.getClientId(), dto.getClientPass());
 	}
+	
+	// signup duplicate
+	@Override
+	public boolean existsByClientId(String clientId) {
+		return clientRepository.existsByClientId(clientId);
+	}
 
 	// login
 	public AuthInfo loginProcess(ClientDTO dto) {
 		ClientEntity clientEntity = clientRepository.findByClientId(dto.getClientId());
-//		ClientDTO clientDTO = ClientDTO.toDto(clientEntity);
 		return new AuthInfo(clientEntity.getClientId(), clientEntity.getClientPass());
 	}
 
@@ -47,13 +52,5 @@ public class ClientServiceImp implements ClientService{
 		clientRepository.save(entity);
 		return new AuthInfo(dto.getClientId(), dto.getClientName(), dto.getClientPass());
 	}
-
-	@Override
-	public AuthInfo deleteProcess(ClientDTO dto) {
-		ClientEntity entity = ClientDTO.toEntity(dto);
-		clientRepository.delete(entity);
-		return null;
-	}
-	
 
 }

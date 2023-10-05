@@ -1,18 +1,23 @@
 package com.omz.demo.client.controller;
 
-import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.omz.demo.client.dto.AuthInfo;
 import com.omz.demo.client.dto.ClientDTO;
 import com.omz.demo.client.service.ClientService;
 
@@ -39,6 +44,18 @@ public class ClientController {
 		return null;
 	}
 	
+	//회원가입 중복체크
+		@GetMapping("/signup/{clientId}")
+		public boolean idDuplication(@RequestParam(value="clientId") String clientId) {
+			System.out.println(clientId);
+			
+			if(clientService.existsByClientId(clientId)) {
+				return false;
+			} else {
+				return true;
+			}
+		}
+	
 	//회원정보 가져오기
 	@GetMapping("/editinfo/{clientId}")
 	public ClientDTO getClient(@PathVariable("clientId") String clientId) {
@@ -52,12 +69,27 @@ public class ClientController {
 		clientService.updateProcess(clientDTO);
 	}
 	
-//	//회원탈퇴
-//	@GetMapping("/delete")
-//	public String delete(HttpSession httpSession, Model model) {
-//		
-//		return "/delete";
-//	}
-	
-	
+//	//회원가입 유효성
+//		@PostMapping("/signup")
+//		public String signup(@RequestBody @Valid ClientDTO clientDTO, Errors errors, Model model) {
+//			
+//			if(errors.hasErrors()) {
+//				model.addAttribute("clientDTO : " + clientDTO);
+//				Map<String, String> validateMap = new HashMap<>();
+//				
+//				for(FieldError error : errors.getFieldErrors()) {
+//					String validKeyName = "valid : " + error.getField();
+//					validateMap.put(validKeyName, error.getDefaultMessage());
+//				}
+//				
+//				for(String key : validateMap.keySet()) {
+//					model.addAttribute(key, validateMap.get(key));
+//				}
+//				return "/signup";			
+//			}		
+//			clientDTO.setClientPass(encodePassword.encode(clientDTO.getClientPass()));
+//			clientService.signupProcess(clientDTO);
+//			return null;
+//		}
+
 }

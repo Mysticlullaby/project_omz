@@ -1,5 +1,7 @@
 package com.omz.demo.client.dto;
 
+import javax.validation.constraints.NotBlank;
+
 import com.omz.demo.client.entity.ClientEntity;
 
 import lombok.AllArgsConstructor;
@@ -16,13 +18,17 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ClientDTO {
+//	@NotBlank(message = "아이디는 필수 입력사항 입니다.")
 	private String clientId;
+//	@NotBlank(message = "비밀번호는 필수 입력사항 입니다.")
 	private String clientPass;
+//	@NotBlank(message = "이름은 필수 입력사항 입니다.")
 	private String clientName;
 	private String phone;
 	private String email;
 	private String gender;
 	private long age;
+//	@NotBlank(message = "MBTI는 필수 입력사항 입니다.")
 	private String mbti;
 	private String regDate;
 	private String grade; // 회원, 관리자 구분용

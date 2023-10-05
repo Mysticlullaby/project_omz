@@ -10,5 +10,5 @@ public interface ClientService {
 	public AuthInfo loginProcess(ClientDTO dto);
 	public ClientDTO updateProcess(String clientId);
 	public AuthInfo updateProcess(ClientDTO dto);
-	public AuthInfo deleteProcess(ClientDTO dto);
+	public boolean existsByClientId(String clientId);
 }
