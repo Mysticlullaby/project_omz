@@ -56,6 +56,7 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Long> {
 	long findCount();*/
 	
 	//보드리스트 출력
+	// 깃 테스트용
 	@Query(value = "SELECT b.*"
 				+ " FROM (SELECT rownum AS rm, a.*"
 					+ " FROM ("
