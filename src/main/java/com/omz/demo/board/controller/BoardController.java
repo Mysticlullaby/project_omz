@@ -18,7 +18,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,7 +51,7 @@ public class BoardController {
 
 	@Autowired
 	private PageDTO pdto;
-	
+
 	private int currentPage;
 
 	public BoardController() {
@@ -78,17 +80,11 @@ public class BoardController {
 		return map;
 	} // end listExecute()
 
-	// @RequestBody : json => 자바객체
-	// @ResponseBody : 자바객체 =>json
-	// @PathVariable : /board/list/:num => /board/list/{num}
-	// @RequestParam : /board/list?num=value => /board/list?num=1 => /board/list
-	// multipart/form-data : @RequestBody선언없이 그냥 받음 BoardDTO dto
-
 	@PostMapping("/board/write")
 	public String writeProExcute(BoardDTO dto, PageDTO pv, HttpServletRequest req, HttpSession session) {
 		MultipartFile file = dto.getFilename();
-		
-		System.out.println("clientid:"+dto.getClientId());
+
+		System.out.println("clientid:" + dto.getClientId());
 		// 파일 첨부가 있으면...
 		if (file != null && !file.isEmpty()) {
 			UUID random = FileUpload.saveCopyFile(file, filePath);
@@ -97,7 +93,8 @@ public class BoardController {
 
 		boardService.insertProcess(dto);
 
-		// 답변글이면
+		// 답변글이면(새글이 아니면 boardRef에 숫자가 담긴상태로 프론트에서 백으로 넘어옴)
+		// 리턴 데이터타입이 스트링이라서 여기서 바꿔줌
 		if (dto.getBoardRef() != 0) {
 			return String.valueOf(pv.getCurrentPage());
 		} else {
@@ -111,10 +108,9 @@ public class BoardController {
 		return boardService.contentProcess(omzboardId);
 	}
 
-	
 	@PutMapping("/board/update")
 	public void updateExecute(BoardDTO dto, HttpServletRequest request) throws IllegalStateException, IOException {
-	
+
 		MultipartFile file = dto.getFilename();
 		if (file != null && !file.isEmpty()) {
 			UUID random = FileUpload.saveCopyFile(file, filePath);
@@ -125,26 +121,31 @@ public class BoardController {
 		boardService.updateProcess(dto, filePath);
 	}
 
-	/*@DeleteMapping("/board/delete/{num}")
-	public void deleteExecute(@PathVariable("num") long num, HttpServletRequest request) {
-		boardService.deleteProcess(num, filePath);
-	}*/
+	@DeleteMapping("/board/delete/{omzboard_id}")
+	public void deleteExecute(@PathVariable("omzboard_id") long omzboardId, HttpServletRequest request) {
+		boardService.deleteProcess(omzboardId, filePath);
+	}
 
-	/*@GetMapping("/board/contentdownload/{filename}")
-	public ResponseEntity<Resource> downloadExecute(@PathVariable("filename") String filename) throws IOException {
+	@GetMapping("/board/contentdownload/{filename}")
+	public ResponseEntity downloadExecute(@PathVariable("filename") String filename) throws IOException {
 	
 		String fileName = filename.substring(filename.indexOf("_") + 1);
-	
+	    
 		// 파일명이 한글일때 인코딩 작업을 한다.
 		String str = URLEncoder.encode(fileName, "UTF-8");
 		// 원본파일명에서 공백이 있을 때, +로 표시가 되므로 공백으로 처리해줌
 		str = str.replaceAll("\\+", "%20");
 		Path path = Paths.get(filePath + "\\" + filename);
+		System.out.println("filename:" + filename);
 		Resource resource = new InputStreamResource(Files.newInputStream(path));
-		System.out.println("resource:" + resource.getFilename());
+		System.out.println("resource:" + resource);
+	
 	
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "application/octet-stream")
-				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + str + ";").body(resource);
-	}*/
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + str + ";") .body(resource);
+	
+	}
+
+	
 
 }// end class

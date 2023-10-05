@@ -54,7 +54,6 @@ public class BoardServiceImp implements BoardService {
 //			boardRepository.save(entity);
 			boardRepository.findSaveReply(BoardDTO.toEntity(dto), dto.getClientId());
 		} else {
-
 			boardRepository.findSaveNew(BoardDTO.toEntity(dto), dto.getClientId());
 //			boardRepository.save(entity);
 		}
@@ -63,6 +62,7 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public BoardDTO contentProcess(long omzboardId) {
 		System.out.println(omzboardId);
+		boardRepository.findByReadCount(omzboardId);
 		BoardDTO bDTO = null;
 		bDTO = BoardDTO.toDto(boardRepository.findByOmzboardId(omzboardId));
 		
@@ -82,7 +82,7 @@ public class BoardServiceImp implements BoardService {
 	
 		String path = boardRepository.findByFileNum(dto.getOmzboardId());
 		// 수정할 파일이 있으면
-		/*if (filename != null) {
+		if (filename != null) {
 		
 			// 기존 첨부파일이 있으면
 			if (path != null) {
@@ -91,7 +91,7 @@ public class BoardServiceImp implements BoardService {
 			}
 		} else {
 			dto.setUpload(path);
-		}*/
+		}
 	
 		// boardRepository.findByUpdateEntity(dto.getSubject(), dto.getContent(),
 		// dto.getUpload(), dto.getNum());
@@ -99,15 +99,15 @@ public class BoardServiceImp implements BoardService {
 		boardRepository.findByUpdateEntity(BoardDTO.toEntity(dto));
 	}
 
-	/*@Override
-	public void deleteProcess(long num, String urlpath) {	
-		String path = boardRepository.findByFileNum(num);
+	@Override
+	public void deleteProcess(long omzboardId, String urlpath) {	
+		String path = boardRepository.findByFileNum(omzboardId);
 		if(path!=null) {
 			File file = new File(urlpath, path);
 			file.delete();
 		}
-		boardRepository.findDelete(num);
+		boardRepository.findDelete(omzboardId);
 	} 
-	*/
+	
 
 }

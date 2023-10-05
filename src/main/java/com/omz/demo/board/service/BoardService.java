@@ -16,5 +16,5 @@ public interface BoardService {
 	
 	public void updateProcess(BoardDTO dto, String urlpath);
 	
-//	public void deleteProcess(long num, String urlpath);
+	public void deleteProcess(long omzboardId, String urlpath);
 }

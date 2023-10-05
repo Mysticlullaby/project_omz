@@ -41,7 +41,7 @@ public class SecurityConfig {
 		http.apply(new MyCustomerFilter());
 		http.authorizeHttpRequests()
 		.antMatchers("/", "/login", "/signup", "/movie/**", "/review/write", "/board/list/**", "/board/write"
-				, "/board/view/**", "/board/update/**")
+				, "/board/view/**", "/board/update/**", "/board/delete/**", "/board/contentdownload/**")
 		.permitAll() // 로그인 없이 접근 허용
 		.anyRequest().authenticated(); // 그외 모든 요청에 대해서 인증(로그인)이 필요
 		
