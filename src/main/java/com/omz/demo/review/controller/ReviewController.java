@@ -54,6 +54,7 @@ public class ReviewController {
 	@PutMapping("/review/update")
 	public void updateExecute(ReviewDTO dto) {
 		System.out.println("movieId from ReviewDTO in updateExecute: " + dto.getMovieId());
+		System.out.println("reviewId from ReviewDTO in updateExecute: " + dto.getReviewId());
 		reviewService.saveProcess(dto);
 	}
 }
