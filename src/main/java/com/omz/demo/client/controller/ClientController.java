@@ -39,6 +39,7 @@ public class ClientController {
 	//회원가입
 	@PostMapping("/signup")
 	public String signup(@RequestBody ClientDTO clientDTO) {
+		System.out.println("password:" +clientDTO.getClientPass() );
 		clientDTO.setClientPass(encodePassword.encode(clientDTO.getClientPass()));
 		clientService.signupProcess(clientDTO);
 		return null;
@@ -46,7 +47,7 @@ public class ClientController {
 	
 	//회원가입 중복체크
 		@GetMapping("/signup/{clientId}")
-		public boolean idDuplication(@RequestParam(value="clientId") String clientId) {
+		public boolean idDuplication(@PathVariable(value="clientId") String clientId) {
 			System.out.println(clientId);
 			
 			if(clientService.existsByClientId(clientId)) {
