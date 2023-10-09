@@ -19,14 +19,16 @@ public class PrincipalDetailesService implements UserDetailsService{
 	public PrincipalDetailesService() {
 	}
 
+	// 사용자가 존재하지 않는 경우 예외처리
 	@Override
 	public UserDetails loadUserByUsername(String clientId) throws UsernameNotFoundException {
 		ClientEntity clientEntity = clientRepository.findByClientId(clientId);
-		System.out.println("client:"+clientEntity.getClientId());
+		System.out.println("client:"+clientEntity.getClientId());		
 		
 		if(clientEntity == null) {
 			throw new UsernameNotFoundException(clientId);
-		}
+		} // 컴파일러에서 해당 조건문이 참, 거짓으로 실행되지 않아 dead code로 분류됨
+		
 		return new PrincipalDetails(ClientDTO.toDto(clientEntity));
 	}
 	

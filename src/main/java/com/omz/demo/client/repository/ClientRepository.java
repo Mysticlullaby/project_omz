@@ -12,6 +12,7 @@ import com.omz.demo.client.entity.ClientEntity;
 public interface ClientRepository extends JpaRepository<ClientEntity, String> {
 
 	public ClientEntity findByClientId(String clientId);
+	boolean existsByClientId(String clientId);
 
 //	JPQL : 엔티티 객체를 조회하는 객체지향 쿼리, 테이블 대상으로 쿼리하는 것이 아닌 엔티티 객체를 대상으로 쿼리
 //	public ClientId findByClientId(@Param("clientId") String clientId)
