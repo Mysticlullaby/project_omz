@@ -35,6 +35,21 @@ public class ClientServiceImp implements ClientService{
 		return new AuthInfo(clientEntity.getClientId(), clientEntity.getClientPass());
 	}
 	
+	@Override
+	public ClientDTO updateProcess(String clinetId) {
+		ClientEntity clientEntity = clientRepository.findByClientId(clinetId);		
+		return ClientDTO.toDto(clientEntity);
+	}
+	
+	@Override
+	public AuthInfo updateProcess(ClientDTO dto) {
+		ClientEntity entity = ClientDTO.toEntity(dto);
+		clientRepository.save(entity);
+		return new AuthInfo(dto.getClientId(), dto.getClientPass());
+	}
+	
+	
+	
 	
 
 }
