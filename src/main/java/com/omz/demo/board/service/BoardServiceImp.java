@@ -13,7 +13,6 @@ import com.omz.demo.board.dto.PageDTO;
 import com.omz.demo.board.entity.BoardEntity;
 import com.omz.demo.board.repository.BoardRepository;
 
-
 @Service
 @Transactional
 public class BoardServiceImp implements BoardService {
@@ -27,59 +26,64 @@ public class BoardServiceImp implements BoardService {
 
 	@Override
 	public long countProcess() {
-		return boardRepository.findCount();
+//		System.out.println("record:"+boardRepository.findCount());
+//		return boardRepository.findCount();
+		return boardRepository.count();
 	}
 
 	@Override
 	public List<BoardDTO> listProcess(PageDTO pv) {
 		System.out.printf("startRow:%d, endRow:%d\n", pv.getStartRow(), pv.getEndRow());
-		List<BoardDTO> aList = new ArrayList<>();		
+		List<BoardDTO> aList = new ArrayList<>();
 		List<BoardEntity> result = boardRepository.findAllActiveOmzboardNative(pv.getStartRow(), pv.getEndRow());
 
 		result.forEach(board -> aList.add(BoardDTO.toDto(board)));
-		return aList; 
+		return aList;
 	}
 
 	@Override
 	public void insertProcess(BoardDTO dto) {
-		System.out.printf("board_id:%d subject:%s\n", dto.getOmzboardId(), dto.getSubject());
-		System.out.println("dto:" + dto.getClientDTO());
+		System.out.printf("ClientId:%s subject:%s\n", dto.getClientId(), dto.getSubject());
 		BoardEntity entity = BoardDTO.toEntity(dto);
-		
+
 		// 답변글이면
 		if (dto.getBoardRef() != 0) {
 			boardRepository.findReStepCount(entity.getBoardRef(), entity.getReStep());
 			dto.setReStep(dto.getReStep() + 1);
 			dto.setReLevel(dto.getReLevel() + 1);
-			boardRepository.findSaveReply(BoardDTO.toEntity(dto), dto.getClientDTO().getClientId());
+//			boardRepository.save(entity);
+			boardRepository.findSaveReply(BoardDTO.toEntity(dto), dto.getClientId());
 		} else {
-//			boardRepository.findSaveNew(BoardDTO.toEntity(dto), dto.getClientDTO().getClientId());
-			boardRepository.save(entity);
+			boardRepository.findSaveNew(BoardDTO.toEntity(dto), dto.getClientId());
+//			boardRepository.save(entity);
 		}
 	}
 
-	/*@Override
-	public BoardDTO contentProcess(long num) {
+	@Override
+	public BoardDTO contentProcess(long omzboardId) {
+		System.out.println(omzboardId);
+		boardRepository.findByReadCount(omzboardId);
 		BoardDTO bDTO = null;
-		bDTO = BoardDTO.toDto(boardRepository.findByContent(num));
-	
+		bDTO = BoardDTO.toDto(boardRepository.findByOmzboardId(omzboardId));
+		
 		return bDTO;
-	}*/
+		
+	}
 
-	//원래 주석이엇음
+	// 원래 주석이엇음
 	/*	@Override
 	public BoardDTO updateSelectProcess(int num) {
 			return boardDao.content(num);
 	}*/
 
-	/*@Override
+	@Override
 	public void updateProcess(BoardDTO dto, String urlpath) {
 		String filename = dto.getUpload();
 	
-		String path = boardRepository.findByFileNum(dto.getNum());
+		String path = boardRepository.findByFileNum(dto.getOmzboardId());
 		// 수정할 파일이 있으면
 		if (filename != null) {
-	
+		
 			// 기존 첨부파일이 있으면
 			if (path != null) {
 				File file = new File(urlpath, path);
@@ -93,17 +97,17 @@ public class BoardServiceImp implements BoardService {
 		// dto.getUpload(), dto.getNum());
 		
 		boardRepository.findByUpdateEntity(BoardDTO.toEntity(dto));
-	}*/
+	}
 
-	/*@Override
-	public void deleteProcess(long num, String urlpath) {	
-		String path = boardRepository.findByFileNum(num);
+	@Override
+	public void deleteProcess(long omzboardId, String urlpath) {	
+		String path = boardRepository.findByFileNum(omzboardId);
 		if(path!=null) {
 			File file = new File(urlpath, path);
 			file.delete();
 		}
-		boardRepository.findDelete(num);
+		boardRepository.findDelete(omzboardId);
 	} 
-	*/
+	
 
 }

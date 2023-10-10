@@ -1,6 +1,7 @@
 package  com.omz.demo.board.dto;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -19,8 +20,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-//import members.dto.MembersDTO;
-
 @Component
 @Getter
 @Setter
@@ -31,7 +30,7 @@ import lombok.ToString;
 public class BoardDTO {
 	private long omzboardId, readCount, boardRef, reStep, reLevel;
 	private String subject, boardContent, clientId;
-	private String regDate;
+	private LocalDateTime regDate, editDate;
 
 	//form페이지에서 파일첨부를 받아 처리해주는 멤버변수
 	private MultipartFile filename;
@@ -40,14 +39,8 @@ public class BoardDTO {
 	private String upload;
 	// filename 변수랑 관련있는 컬럼명이라서 따로 뺀듯
 	
-	private ClientDTO clientDTO= new ClientDTO();
-
 	public static BoardDTO toDto(BoardEntity entity) {
 		
-		ClientDTO clientDTO=new ClientDTO();
-		clientDTO.setClientId(entity.getClientEntity().getClientId());
-//		clientDTO.setMemberName(entity.getClientEntity().getMemberName());
-		 
 		return BoardDTO.builder()
 				.omzboardId(entity.getOmzboardId())
 				.readCount(entity.getReadCount())
@@ -57,17 +50,14 @@ public class BoardDTO {
 				.subject(entity.getSubject())
 				.boardContent(entity.getBoardContent())
 				.regDate(entity.getRegDate())
+				.editDate(entity.getEditDate())
 				.upload(entity.getUpload())
-				.clientDTO(clientDTO)
+				.clientId(entity.getClientId())
 				.build();
 	}
 	
 	//컨트롤러에서 디비로 넘겨줄때 변경해야하는 부분
 	public static BoardEntity toEntity(BoardDTO dto) {
-		
-		ClientEntity clientEntity=new ClientEntity();
-		clientEntity.setClientId(dto.getClientDTO().getClientId());
-	//	clientEntity.setMemberName(dto.getClientDTO().getMemberName());
 		
 		return BoardEntity.builder()
 				.omzboardId(dto.getOmzboardId())
@@ -78,8 +68,9 @@ public class BoardDTO {
 				.subject(dto.getSubject())
 				.boardContent(dto.getBoardContent())
 				.regDate(dto.getRegDate())
+				.editDate(dto.getEditDate())
 				.upload(dto.getUpload())
-				.clientEntity(clientEntity)
+				.clientId(dto.getClientId())
 				.build();
 	}
 
