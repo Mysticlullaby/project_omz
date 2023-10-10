@@ -1,27 +1,16 @@
 package com.omz.demo.client.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.omz.demo.client.dto.ClientDTO;
 import com.omz.demo.client.service.ClientService;
-
-// http://localhost:3000/signup
 
 @CrossOrigin("*")
 @RestController
@@ -36,34 +25,34 @@ public class ClientController {
 	public ClientController() {
 	}
 	
-	//회원가입
+	// 회원가입
 	@PostMapping("/signup")
 	public String signup(@RequestBody ClientDTO clientDTO) {
-		System.out.println("password:" +clientDTO.getClientPass() );
+		System.out.println("password:" + clientDTO.getClientPass());
 		clientDTO.setClientPass(encodePassword.encode(clientDTO.getClientPass()));
 		clientService.signupProcess(clientDTO);
 		return null;
 	}
-	
-	//회원가입 중복체크
-		@GetMapping("/signup/{clientId}")
-		public boolean idDuplication(@PathVariable(value="clientId") String clientId) {
-			System.out.println(clientId);
-			
-			if(clientService.existsByClientId(clientId)) {
-				return false;
-			} else {
-				return true;
-			}
+
+	// 회원가입 중복체크
+	@GetMapping("/signup/{clientId}")
+	public boolean idDuplication(@PathVariable(value = "clientId") String clientId) {
+		System.out.println(clientId);
+
+		if (clientService.existsByClientId(clientId)) {
+			return false;
+		} else {
+			return true;
 		}
-	
-	//회원정보 가져오기
+	}
+		
+	// 회원정보 가져오기
 	@GetMapping("/editinfo/{clientId}")
 	public ClientDTO getClient(@PathVariable("clientId") String clientId) {
 		return clientService.updateProcess(clientId);
 	}
-	
-	//회원정보 수정
+
+	// 회원정보 수정
 	@PostMapping("/update")
 	public void update(@RequestBody ClientDTO clientDTO) {
 		clientDTO.setClientPass(encodePassword.encode(clientDTO.getClientPass()));

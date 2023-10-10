@@ -2,7 +2,6 @@ package com.omz.demo.client.service;
 
 import com.omz.demo.client.dto.AuthInfo;
 import com.omz.demo.client.dto.ClientDTO;
-import com.omz.demo.client.entity.ClientEntity;
 
 public interface ClientService {
 	
