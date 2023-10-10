@@ -58,28 +58,5 @@ public class ClientController {
 		clientDTO.setClientPass(encodePassword.encode(clientDTO.getClientPass()));
 		clientService.updateProcess(clientDTO);
 	}
-	
-//	//회원가입 유효성
-//		@PostMapping("/signup")
-//		public String signup(@RequestBody @Valid ClientDTO clientDTO, Errors errors, Model model) {
-//			
-//			if(errors.hasErrors()) {
-//				model.addAttribute("clientDTO : " + clientDTO);
-//				Map<String, String> validateMap = new HashMap<>();
-//				
-//				for(FieldError error : errors.getFieldErrors()) {
-//					String validKeyName = "valid : " + error.getField();
-//					validateMap.put(validKeyName, error.getDefaultMessage());
-//				}
-//				
-//				for(String key : validateMap.keySet()) {
-//					model.addAttribute(key, validateMap.get(key));
-//				}
-//				return "/signup";			
-//			}		
-//			clientDTO.setClientPass(encodePassword.encode(clientDTO.getClientPass()));
-//			clientService.signupProcess(clientDTO);
-//			return null;
-//		}
 
 }

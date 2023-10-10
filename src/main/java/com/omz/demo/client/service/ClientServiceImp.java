@@ -10,8 +10,6 @@ import com.omz.demo.client.entity.ClientEntity;
 import com.omz.demo.client.exception.WrongIdPasswordException;
 import com.omz.demo.client.repository.ClientRepository;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Service
 @Transactional
 public class ClientServiceImp implements ClientService{
