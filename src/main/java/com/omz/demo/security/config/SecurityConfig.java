@@ -28,19 +28,23 @@ public class SecurityConfig {
 	@Bean
 	public BCryptPasswordEncoder encodePassword() {
 		return new BCryptPasswordEncoder();
-}
+	}
+
 	@Autowired
 	private CorsConfig corsConfig;
 	
 	@Bean
-	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.csrf().disable();
+	// 사용자 요청을 받아 위임하면서 찾게 되는게 SecurityFilterChain(FilterChainProxy)이며, 
+	// 위임받은 요청을 각각의 Filter에게 순서대로 요청하는데 각각의 필터가 체인으로 연결되어 수행>넘김>수행>넘김으로 진행되며 이때 수행되는 메소드가 doFilter
+	SecurityFilterChain filterChain(HttpSecurity http) throws Exception { // 실제 필터를 생성하는 클래스 HttpSecurity
+
+        http.csrf().disable();
 		http.formLogin().disable();
 		http.httpBasic().disable();
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.apply(new MyCustomerFilter());
 		http.authorizeHttpRequests()
-		.antMatchers("/", "/login", "/signup", "/movie/**", "/review/list/**", "/review/detail/**", "/review/page/**", "/comment/list/**",
+		.antMatchers("/", "/signup", "/signup/*", "/update", "/editinfo/*", "/movie/**", "/review/list/**", "/review/detail/**", "/review/page/**", "/comment/list/**",
 				"/board/list/**", "/board/write",
 				"/board/view/**", "/board/update/**", "/board/delete/**", "/board/contentdownload/**")
 		.permitAll() // 로그인 없이 접근 허용
@@ -57,6 +61,7 @@ public class SecurityConfig {
 			http.addFilter(new JwtAuthenticationFilter(authenticationManager))// 인증 필터 등록
 					.addFilter(new JwtAutorizationFilter(authenticationManager, clientRepository));
 		}
-	}	
+
+	}
 
 }
