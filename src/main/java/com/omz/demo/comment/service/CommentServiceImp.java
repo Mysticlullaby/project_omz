@@ -26,7 +26,7 @@ public class CommentServiceImp implements CommentService{
 	@Override
 	public List<CommentDTO> listProcess(long reviewId) {
 		List<CommentDTO> dtoList = new ArrayList<>();
-		List<CommentEntity> entityList = commentRepository.findByReviewId(reviewId);
+		List<CommentEntity> entityList = commentRepository.findByReviewIdOrderByRegDateDesc(reviewId);
 		for(CommentEntity entity : entityList) {
 			dtoList.add(CommentDTO.toDto(entity));
 		}
