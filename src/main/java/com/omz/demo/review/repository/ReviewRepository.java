@@ -13,7 +13,7 @@ public interface ReviewRepository extends JpaRepository<ReviewEntity, Long>{
 	
 	@Query(value="SELECT b.*"
 			  + " FROM (SELECT a.*, rownum as rm"
-				    + " FROM (SELECT r.*"
+				    + " FROM (SELECT r.*, x.like_count"
 				  		  + " FROM (SELECT r.review_id, count(l.reviewlike_id) AS like_count"
 				  			    + " FROM review r, review_like l"
 				  			    + " WHERE r.review_id = l.review_id(+) AND r.movie_id = :movieId"
@@ -28,7 +28,7 @@ public interface ReviewRepository extends JpaRepository<ReviewEntity, Long>{
 	
 	@Query(value="SELECT b.*"
 			  + " FROM (SELECT a.*, rownum as rm"
-				    + " FROM (SELECT r.*"
+				    + " FROM (SELECT r.*, x.like_count"
 				  		  + " FROM (SELECT r.review_id, count(l.reviewlike_id) AS like_count"
 				  			    + " FROM review r, review_like l"
 				  			    + " WHERE r.review_id = l.review_id(+) AND r.movie_id = :movieId"

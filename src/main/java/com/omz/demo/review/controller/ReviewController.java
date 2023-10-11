@@ -32,11 +32,12 @@ public class ReviewController {
 		return reviewService.listProcess(movieId);
 	}
 	
-	@GetMapping("/review/page/{movieId}/{currentPage}")
-	public Map<String, Object> pageExecute(@PathVariable("movieId") long movieId, @PathVariable("currentPage") long currentPage){
+	@GetMapping("/review/page/{movieId}/{currentPage}/{clientId}")
+	public Map<String, Object> pageExecute(@PathVariable("movieId") long movieId, @PathVariable("currentPage") long currentPage, @PathVariable("clientId") String clientId){
 		System.out.println("movieId for review: " + movieId);
 		System.out.println("currentPage: " + currentPage);
-		return reviewService.pageProcess(movieId, currentPage);		
+		System.out.println("clientId: " + clientId);
+		return reviewService.pageProcess(movieId, currentPage, clientId);		
 	}
 	
 	@GetMapping("/review/detail/{reviewId}")

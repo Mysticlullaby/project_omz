@@ -59,4 +59,7 @@ public class ReviewEntity {
 	@Column(name="edit_date")
 	private LocalDateTime editDate;
 	
+//	@Column(name="like_count")
+//	private long likeCount;
+	
 }

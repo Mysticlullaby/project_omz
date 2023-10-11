@@ -33,4 +33,9 @@ public class CommentServiceImp implements CommentService{
 		return dtoList;
 	}
 
+	@Override
+	public void deleteProcess(long commentId) {
+		commentRepository.deleteById(commentId);	
+	}		
+
 }
