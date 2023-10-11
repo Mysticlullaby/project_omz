@@ -45,7 +45,7 @@ public class ClientController {
 			return true;
 		}
 	}
-		
+			
 	// 회원정보 가져오기
 	@GetMapping("/editinfo/{clientId}")
 	public ClientDTO getClient(@PathVariable("clientId") String clientId) {
