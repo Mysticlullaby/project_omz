@@ -21,8 +21,14 @@ public class ReviewLikeServiceImp implements ReviewLikeService{
 		reviewLikeRepository.save(entity);		
 	}
 	
+	@Override
 	public long countProcess(long reviewId) {
 		return reviewLikeRepository.countByReviewId(reviewId);
 	}
 
+	@Override
+	public void deleteProcess(long reviewId, String clientId) {
+		reviewLikeRepository.deleteByReviewIdAndClientId(reviewId, clientId);
+	}
+	
 }

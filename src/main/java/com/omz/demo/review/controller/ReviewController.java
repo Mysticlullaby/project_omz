@@ -27,9 +27,9 @@ public class ReviewController {
 		reviewService.saveProcess(dto);
 	}
 	
-	@GetMapping("/review/list/{movieId}")
-	public List<ReviewDTO> listExecute(@PathVariable("movieId") long movieId){
-		return reviewService.listProcess(movieId);
+	@GetMapping("/review/list/{movieId}/{clientId}")
+	public List<ReviewDTO> listExecute(@PathVariable("movieId") long movieId, @PathVariable("clientId") String clientId){
+		return reviewService.listProcess(movieId, clientId);
 	}
 	
 	@GetMapping("/review/page/{movieId}/{currentPage}/{clientId}")
@@ -40,9 +40,9 @@ public class ReviewController {
 		return reviewService.pageProcess(movieId, currentPage, clientId);		
 	}
 	
-	@GetMapping("/review/detail/{reviewId}")
-	public ReviewDTO getExecute(@PathVariable("reviewId") long reviewId) {
-		ReviewDTO data = reviewService.getProcess(reviewId);
+	@GetMapping("/review/detail/{reviewId}/{clientId}")
+	public ReviewDTO getExecute(@PathVariable("reviewId") long reviewId, @PathVariable("clientId") String clientId) {
+		ReviewDTO data = reviewService.getProcess(reviewId, clientId);
 		System.out.println("sending reviewDetail data: " + data);
 		return data;
 	}

@@ -8,4 +8,5 @@ import com.omz.demo.review.entity.ReviewLikeEntity;
 public interface ReviewLikeRepository extends JpaRepository<ReviewLikeEntity, Long>{
 	public long countByReviewId(long reviewId);
 	public ReviewLikeEntity findByReviewIdAndClientId(long reviewId, String clientId);
+	public void deleteByReviewIdAndClientId(long reviewId, String clientId);
 }

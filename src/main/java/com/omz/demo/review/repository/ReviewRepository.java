@@ -24,7 +24,13 @@ public interface ReviewRepository extends JpaRepository<ReviewEntity, Long>{
 			  + " WHERE rm>=1 AND rm<=8", nativeQuery = true)
 	List<ReviewEntity> getReviewList(@Param("movieId") long movieId);
 	
-	ReviewEntity findByReviewId(long id);
+//	@Query(value="SELECT b.*, a.like_count"
+//			  + " FROM (SELECT r.review_id, count(l.reviewlike_id) AS like_count"
+//			        + " FROM review r, review_like l"
+//			        + " WHERE r.review_id = l.review_id AND r.review_id = :reviewId"
+//			        + " GROUP BY r.review_id)a, review b"
+//			  + " WHERE a.review_id = b.review_id", nativeQuery = true)
+	ReviewEntity findByReviewId(long reviewId);
 	
 	@Query(value="SELECT b.*"
 			  + " FROM (SELECT a.*, rownum as rm"

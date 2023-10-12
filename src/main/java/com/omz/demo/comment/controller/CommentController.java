@@ -36,9 +36,8 @@ public class CommentController {
 		commentService.deleteProcess(commentId);
 	}
 	
-	@GetMapping("/comment/list/{reviewId}")
-	public List<CommentDTO> listExecute(@PathVariable("reviewId") long reviewId){
-		System.out.println("listExecute processing");
-		return commentService.listProcess(reviewId);
+	@GetMapping("/comment/list/{reviewId}/{clientId}")
+	public List<CommentDTO> listExecute(@PathVariable("reviewId") long reviewId, @PathVariable("clientId") String clientId){
+		return commentService.listProcess(reviewId, clientId);
 	}
 }

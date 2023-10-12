@@ -32,6 +32,7 @@ public class ReviewDTO {
 	
 	private long likeCount;
 	private boolean likeCheck;
+	private long commentCount;
 	
 	public static ReviewEntity toEntity(ReviewDTO dto) {
 		return ReviewEntity.builder()
