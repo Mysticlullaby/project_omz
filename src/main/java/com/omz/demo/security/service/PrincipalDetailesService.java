@@ -23,8 +23,8 @@ public class PrincipalDetailesService implements UserDetailsService{
 	@Override
 	public UserDetails loadUserByUsername(String clientId) throws UsernameNotFoundException {
 		ClientEntity clientEntity = clientRepository.findByClientId(clientId);
-		System.out.println("client:"+clientEntity.getClientId());		
-		
+//		System.out.println("아이디 : "+clientEntity.getClientId());		
+
 		if(clientEntity == null) {
 			throw new UsernameNotFoundException(clientId);
 		} // 컴파일러에서 해당 조건문이 참, 거짓으로 실행되지 않아 dead code로 분류됨

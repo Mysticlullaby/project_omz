@@ -44,11 +44,17 @@ public class SecurityConfig {
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.apply(new MyCustomerFilter());
 		http.authorizeHttpRequests()
-		.antMatchers("/", "/signup", "/signup/*", "/update", "/editinfo/*", "/movie/**", "/review/list/**", "/review/detail/**", "/review/page/**", "/comment/list/**",
-				"/board/list/**", "/board/write",
+		.antMatchers("/", "/login", "/signup/*", "/update", "/editinfo/*", "/movie/**", "/review/list/**", "/review/detail/**", "/review/page/**", "/comment/list/**",
+				"/board/list/**", "/board/write", "/idcheck/**", 
 				"/board/view/**", "/board/update/**", "/board/delete/**", "/board/contentdownload/**")
 		.permitAll() // 로그인 없이 접근 허용
 		.anyRequest().authenticated(); // 그외 모든 요청에 대해서 인증(로그인)이 필요
+		
+//		.antMatchers("/user/**").authenticated()
+//		.antMatchers("/member/**").access("hasRole('Role_member')")
+//		
+		
+		
 		
 		return http.build();
 	}

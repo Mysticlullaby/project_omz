@@ -26,7 +26,7 @@ public class ClientServiceImp implements ClientService{
 		return new AuthInfo(dto.getClientId(), dto.getClientPass());
 	}
 	
-	// signup duplicate
+	// 회원가입 중복확인
 	@Override
 	public boolean existsByClientId(String clientId) {
 		return clientRepository.existsByClientId(clientId);
@@ -37,6 +37,8 @@ public class ClientServiceImp implements ClientService{
 		ClientEntity clientEntity = clientRepository.findByClientId(dto.getClientId());
 		ClientDTO clientDTO = ClientDTO.toDto(clientEntity);
 		
+//		System.out.println("아이디" + dto.getClientId());
+		
 		if(clientEntity == null) {
 			System.out.println("회원이 아닙니다.");
 			throw new WrongIdPasswordException();
@@ -45,7 +47,7 @@ public class ClientServiceImp implements ClientService{
 		if(!clientDTO.matchPassword(dto.getClientPass())) {
 			System.out.println("비밀번호가 다릅니다.");
 			throw new WrongIdPasswordException();
-		}		
+		}
 		return new AuthInfo(clientEntity.getClientId(), clientEntity.getClientPass());
 	}
 
@@ -60,6 +62,12 @@ public class ClientServiceImp implements ClientService{
 		ClientEntity entity = ClientDTO.toEntity(dto);
 		clientRepository.save(entity);
 		return new AuthInfo(dto.getClientId(), dto.getClientName(), dto.getClientPass());
+	}
+
+	@Override
+	public ClientEntity loginProcess(String clientId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
