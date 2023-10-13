@@ -28,18 +28,22 @@ public class ClientDTO {
 	private String grade; // 회원, 관리자 구분용
 	private String authRole;
 	
+	// 로그인 비밀번호 확인
+	public boolean matchPassword(String clientPass) {
+		return this.clientPass.equals(clientPass);
+	}
 
 	public static ClientEntity toEntity(ClientDTO dto) {
 		return ClientEntity.builder()
 				.clientId(dto.getClientId())
 				.clientPass(dto.getClientPass())
 				.clientName(dto.getClientName())
-				.phone(dto.getPhone())
-				.email(dto.getEmail())
-				.gender(dto.getGender())
-				.age(dto.getAge())
+//				.phone(dto.getPhone())
+//				.email(dto.getEmail())
+//				.gender(dto.getGender())
+//				.age(dto.getAge())
 				.mbti(dto.getMbti())
-				.regDate(dto.getRegDate())
+//				.regDate(dto.getRegDate())
 				.grade(dto.getGrade())
 				.build();
 	}
@@ -49,12 +53,12 @@ public class ClientDTO {
 				.clientId(entity.getClientId())
 				.clientPass(entity.getClientPass())
 				.clientName(entity.getClientName())
-				.phone(entity.getPhone())
-				.email(entity.getEmail())
-				.gender(entity.getGender())
-				.age(entity.getAge())
+//				.phone(entity.getPhone())
+//				.email(entity.getEmail())
+//				.gender(entity.getGender())
+//				.age(entity.getAge())
 				.mbti(entity.getMbti())
-				.regDate(entity.getRegDate())
+//				.regDate(entity.getRegDate())
 				.grade(entity.getGrade())
 				.build();
 	}

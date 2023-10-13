@@ -20,6 +20,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+//@EntityListeners(AuditingEntityListener.class)
 @Table(name="review")
 @Getter
 @Setter
@@ -51,12 +52,14 @@ public class ReviewEntity {
 	private long rating;
 	
 	@CreationTimestamp
-	@Column(name="reg_date")
-	private LocalDateTime regDate = LocalDateTime.now();
+	@Column(name="reg_date", updatable = false)
+	private LocalDateTime regDate;
 	
 	@UpdateTimestamp
 	@Column(name="edit_date")
-	private LocalDateTime editDate = LocalDateTime.now();
+	private LocalDateTime editDate;
 	
+//	@Column(name="like_count")
+//	private long likeCount;
 	
 }

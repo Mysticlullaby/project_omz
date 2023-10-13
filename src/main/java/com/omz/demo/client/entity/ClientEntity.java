@@ -35,23 +35,23 @@ public class ClientEntity {
 	@Column(name = "client_name")
 	private String clientName;
 
-	@Column
-	private String phone;
-
-	@Column
-	private String email;
-
-	@Column
-	private String gender;
-
-	@Column
-	private long age;
+//	@Column
+//	private String phone;
+//
+//	@Column // (unique = true)
+//	private String email;
+//
+//	@Column
+//	private String gender;
+//
+//	@Column
+//	private long age;
 
 	@Column
 	private String mbti;
 
-	@Column(name = "reg_date", insertable = false)
-	private String regDate;
+//	@Column(name = "reg_date", insertable = false)
+//	private String regDate;
 
 	@Column
 	private String grade; // 회원 구분용

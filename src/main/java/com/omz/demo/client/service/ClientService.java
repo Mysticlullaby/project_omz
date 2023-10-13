@@ -7,5 +7,7 @@ public interface ClientService {
 	
 	public AuthInfo signupProcess(ClientDTO dto);
 	public AuthInfo loginProcess(ClientDTO dto);
-	
+	public ClientDTO updateProcess(String clientId);
+	public AuthInfo updateProcess(ClientDTO dto);
+	public boolean existsByClientId(String clientId);
 }
