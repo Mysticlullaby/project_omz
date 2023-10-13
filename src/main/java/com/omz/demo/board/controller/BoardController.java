@@ -81,7 +81,7 @@ public class BoardController {
 	} // end listExecute()
 
 	@PostMapping("/board/write")
-	public String writeProExecute(BoardDTO dto, PageDTO pv, HttpServletRequest req, HttpSession session) {
+	public String writeExecute(BoardDTO dto, PageDTO pv, HttpServletRequest req, HttpSession session) {
 		MultipartFile file = dto.getFilename();
 
 		System.out.println("clientid:" + dto.getClientId());
