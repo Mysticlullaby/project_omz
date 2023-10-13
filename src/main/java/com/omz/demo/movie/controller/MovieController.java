@@ -23,9 +23,9 @@ public class MovieController {
 		return movieService.listProcess();
 	}
 	
-	@GetMapping("/movie/{movieId}")
-	public MovieDTO getExecute(@PathVariable("movieId") long id) {
-		return movieService.getProcess(id);
+	@GetMapping("/movie/{movieId}/{clientId}")
+	public MovieDTO getExecute(@PathVariable("movieId") long movieId, @PathVariable("clientId") String clientId) {
+		return movieService.getProcess(movieId, clientId);
 	}
 
 }
