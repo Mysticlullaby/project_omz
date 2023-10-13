@@ -1,7 +1,11 @@
 package com.omz.demo.client.controller;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.omz.demo.client.dto.AuthInfo;
 import com.omz.demo.client.dto.ClientDTO;
@@ -64,29 +69,55 @@ public class ClientController {
 		clientService.updateProcess(clientDTO);
 	}
 	
-	@GetMapping("/idcheck/{clientId}")
-	public ClientEntity idCheckExecute(@PathVariable("clientId") String clientId, ClientDTO dto) {
-		System.out.println("idcheck 메소드가 호출되었습니다. 체크해야 할 아이디는 : " + clientId);
-		
+//	@GetMapping("/delete/{clientId}")
+//	public String deleteById(@PathVariable String clientId) {
+//		return null;
+//		
+//	}
+	
+	
+	
+//	@GetMapping("/idcheck/{clientId}")
+//	public ClientEntity idCheckExecute(@PathVariable("clientId") String clientId, ClientDTO dto) {
+//		System.out.println("idcheck 메소드가 호출되었습니다. 체크해야 할 아이디는 : " + clientId);
+//		
 //		ClientEntity clientEntity = clientService.loginProcess(dto.getClientId());
 //		ClientDTO clientDTO = ClientDTO.toDto(clientEntity);
-
-		if (clientId == null) {
-			System.out.println("회원이 아닙니다.");
-			throw new WrongIdPasswordException();
-		}
-		return clientService.loginProcess(clientId);
-	}
-
-//	@GetMapping("/idcheck/{clientId}")
-//	public void idCheckExecute(@PathVariable("clientId") String clientId) {
-//		System.out.println("idcheck 메소드가 호출되었습니다. 체크해야 할 아이디는: " + clientId);
-//		
-//		ClientEntity clientEntity = clientService.
-//		ClientDTO clientDTO = ClientDTO.toDto(clientEntity);
-//		if (clientId == null)
-//			System.out.println("가입되지 않은 회원입니다.");
-//		throw new WrongIdPasswordException();			
+//
+//		if (clientId == null) {
+//			System.out.println("회원이 아닙니다.");
+//			throw new WrongIdPasswordException();
+//		}
+//		return clientService.loginProcess(clientId);
 //	}
+//
+	
+//	@GetMapping("/stranger")
+//	public String stranger() {
+//		return "stranger";
+//	}
+//	
+//	@GetMapping("/member")
+//	public String member() {
+//		return "member";
+//	}
+//	
+//	@GetMapping("/admin")
+//	public String admin() {
+//		return "admin";
+//	}
+//	
+//	@GetMapping("/login")
+//	public String login() {
+//		return "login";
+//	}
+	
+	@GetMapping("/callName/{clientId}")
+	public ClientDTO callNameExcute(@PathVariable ("clientId") String clientId) {
+		ClientDTO dto = clientService.callNameProcess(clientId);
+		return dto;
+	}
+	
+
 
 }

@@ -2,7 +2,6 @@ package com.omz.demo.client.service;
 
 import com.omz.demo.client.dto.AuthInfo;
 import com.omz.demo.client.dto.ClientDTO;
-import com.omz.demo.client.entity.ClientEntity;
 
 public interface ClientService {
 	
@@ -11,5 +10,6 @@ public interface ClientService {
 	public ClientDTO updateProcess(String clientId);
 	public AuthInfo updateProcess(ClientDTO dto);
 	public boolean existsByClientId(String clientId);
-	public ClientEntity loginProcess(String clientId);
+	public ClientDTO callNameProcess(String clientId); //clientId를 넘기면 dto를 가져온다.
+	public ClientDTO deleleProcess(String clientId);
 }

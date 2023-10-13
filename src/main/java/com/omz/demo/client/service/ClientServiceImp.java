@@ -65,8 +65,14 @@ public class ClientServiceImp implements ClientService{
 	}
 
 	@Override
-	public ClientEntity loginProcess(String clientId) {
-		// TODO Auto-generated method stub
+	public ClientDTO callNameProcess(String clientId) {
+		ClientEntity clientEntity = clientRepository.findByClientId(clientId);
+		return ClientDTO.toDto(clientEntity); // 결과값을 entity에 담아오는데 dto 변환해서 가져오려고 함
+	}
+
+	@Override
+	public ClientDTO deleleProcess(String clientId) {
+		
 		return null;
 	}
 

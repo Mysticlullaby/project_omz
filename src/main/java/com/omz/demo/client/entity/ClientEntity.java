@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.stereotype.Component;
 
 import lombok.AllArgsConstructor;
@@ -51,6 +52,7 @@ public class ClientEntity {
 	private String mbti;
 
 //	@Column(name = "reg_date", insertable = false)
+//	@CreationTimestamp
 //	private String regDate;
 
 	@Column

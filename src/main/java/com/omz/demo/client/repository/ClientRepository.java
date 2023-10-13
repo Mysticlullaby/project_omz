@@ -6,7 +6,7 @@ import com.omz.demo.client.entity.ClientEntity;
 
 public interface ClientRepository extends JpaRepository<ClientEntity, String> {
 
-	public ClientEntity findByClientId(String clientId);
+	public ClientEntity findByClientId(String clientId); //clientId를 넘기면 ClientEntity 값으로 나온다
 	boolean existsByClientId(String clientId);
 
 }
