@@ -30,6 +30,9 @@ public class CommentDTO {
 	private LocalDateTime regDate;
 	private LocalDateTime editDate;
 	
+	private long likeCount;
+	private boolean likeCheck;
+	
 	public static CommentEntity toEntity(CommentDTO dto) {
 		return CommentEntity.builder()
 				.commentId(dto.getCommentId())

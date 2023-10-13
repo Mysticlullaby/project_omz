@@ -27,6 +27,9 @@ public class MovieDTO {
 	private String trailer;
 	private String castings;
 	
+	private long viewCount;
+	private boolean viewCheck;
+	
 	public static MovieEntity toEntity(MovieDTO dto) {
 		return MovieEntity.builder()
 				.movieId(dto.getMovieId())

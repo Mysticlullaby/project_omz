@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.omz.demo.movie.dto.MovieDTO;
 import com.omz.demo.movie.entity.MovieEntity;
 import com.omz.demo.movie.repository.MovieRepository;
+import com.omz.demo.movie.repository.ViewCountRepository;
 
 @Service
 @Transactional
@@ -17,6 +18,9 @@ public class MovieServiceImp implements MovieService{
 	
 	@Autowired
 	private MovieRepository movieRepository;
+	
+	@Autowired
+	private ViewCountRepository viewCountRepository;
 
 	@Override
 	public List<MovieDTO> listProcess() {
@@ -31,8 +35,14 @@ public class MovieServiceImp implements MovieService{
 	}
 
 	@Override
-	public MovieDTO getProcess(long id) {
-		MovieEntity entity = movieRepository.findByMovieId(id);
-		return MovieDTO.toDto(entity);
+	public MovieDTO getProcess(long movieId, String clientId) {
+		MovieDTO dto = MovieDTO.toDto(movieRepository.findByMovieId(movieId));
+		dto.setViewCount(viewCountRepository.countByMovieId(movieId));
+		if(clientId != null) {
+			if(viewCountRepository.findByMovieIdAndClientId(movieId, clientId) != null) {
+				dto.setViewCheck(true);
+			}
+		}
+		return dto;
 	}
 }

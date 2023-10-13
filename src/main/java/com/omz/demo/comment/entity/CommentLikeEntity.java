@@ -1,4 +1,4 @@
-package com.omz.demo.review.entity;
+package com.omz.demo.comment.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,27 +15,30 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name="review_like")
+@Table(name="comment_like")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @SequenceGenerator(
-		name="review_like_num_gen", 
-		sequenceName = "review_like_num_seq",
+		name="comment_like_num_gen", 
+		sequenceName = "comment_like_num_seq",
 		initialValue = 1,
 		allocationSize = 1)
-public class ReviewLikeEntity {
+public class CommentLikeEntity {
+//	commentlike_id NUMBER NOT NULL,
+//  client_id      VARCHAR2(64) NOT NULL,
+//  comment_id     NUMBER NOT NULL
 	
 	@Id
-	@Column(name="reviewlike_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "review_like_num_gen")
-	private long reviewlikeId;
+	@Column(name="commentlike_id")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "comment_like_num_gen")
+	private long commentlikeId;
 	
 	@Column(name="client_id")
 	private String clientId;
 	
-	@Column(name="review_id")
-	private long reviewId;
+	@Column(name="comment_id")
+	private long commentId;
 }

@@ -6,5 +6,6 @@ import com.omz.demo.comment.dto.CommentDTO;
 
 public interface CommentService {
 	public void saveProcess(CommentDTO dto);
-	public List<CommentDTO> listProcess(long reviewId);
+	public void deleteProcess(long commentId);
+	public List<CommentDTO> listProcess(long reviewId, String clientId);
 }

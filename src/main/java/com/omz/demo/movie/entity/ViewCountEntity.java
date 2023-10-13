@@ -1,4 +1,4 @@
-package com.omz.demo.review.entity;
+package com.omz.demo.movie.entity;
 
 import java.time.LocalDateTime;
 
@@ -20,46 +20,37 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-//@EntityListeners(AuditingEntityListener.class)
-@Table(name="review")
+@Table(name="view_count")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @SequenceGenerator(
-name="review_num_gen", 
-sequenceName = "review_num_seq",
-initialValue = 1,
-allocationSize = 1)
-public class ReviewEntity {
+		name="view_num_gen", 
+		sequenceName = "view_num_seq",
+		initialValue = 1,
+		allocationSize = 1)
+public class ViewCountEntity {
+//	viewcount_id NUMBER NOT NULL,
+//  client_id    VARCHAR2(64) NOT NULL,
+//  movie_id     NUMBER NOT NULL,
+//  reg_date     TIMESTAMP,
+//  edit_date    TIMESTAMP
 	
 	@Id
-	@Column(name="review_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "review_num_gen")
-	private long reviewId;
-	
-	@Column(name="movie_id")
-	private long movieId;
+	@Column(name="viewcount_id")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "view_num_gen")
+	private long viewcountId;
 	
 	@Column(name="client_id")
 	private String clientId;
 	
-	@Column(name="review_content")
-	private String reviewContent;
-	
-	@Column
-	private long rating;
+	@Column(name="movie_id")
+	private long movieId;
 	
 	@CreationTimestamp
 	@Column(name="reg_date", updatable = false)
 	private LocalDateTime regDate;
-	
-	@UpdateTimestamp
-	@Column(name="edit_date")
-	private LocalDateTime editDate;
-	
-//	@Column(name="like_count")
-//	private long likeCount;
-	
+
 }

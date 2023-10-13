@@ -30,6 +30,10 @@ public class ReviewDTO {
 	private LocalDateTime regDate;
 	private LocalDateTime editDate;
 	
+	private long likeCount;
+	private boolean likeCheck;
+	private long commentCount;
+	
 	public static ReviewEntity toEntity(ReviewDTO dto) {
 		return ReviewEntity.builder()
 				.reviewId(dto.getReviewId())
@@ -51,6 +55,7 @@ public class ReviewDTO {
 				.rating(entity.getRating())
 				.regDate(entity.getRegDate())
 				.editDate(entity.getEditDate())
+//				.likeCount(entity.getLikeCount())
 				.build();
 	}
 
