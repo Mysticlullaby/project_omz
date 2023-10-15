@@ -26,8 +26,12 @@ public class PrincipalDetailesService implements UserDetailsService{
 		System.out.println("client:"+clientEntity.getClientId());		
 		
 		if(clientEntity == null) {
+			System.out.println("clientEntity: " + clientEntity);
+			System.out.println("UserDetailsService couldn't find a clientEntity with clientId, " + clientId);
 			throw new UsernameNotFoundException(clientId);
-		} // 컴파일러에서 해당 조건문이 참, 거짓으로 실행되지 않아 dead code로 분류됨
+		} else {
+			System.out.println("UserDetailsService has found a clientEntity");
+		}
 		
 		return new PrincipalDetails(ClientDTO.toDto(clientEntity));
 	}
