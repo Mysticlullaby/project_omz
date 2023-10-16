@@ -32,24 +32,24 @@ public class ClientServiceImp implements ClientService{
 		return clientRepository.existsByClientId(clientId);
 	}
 
-	@Override
-	public AuthInfo loginProcess(ClientDTO dto) {
-		ClientEntity clientEntity = clientRepository.findByClientId(dto.getClientId());
-		ClientDTO clientDTO = ClientDTO.toDto(clientEntity);
-		
-//		System.out.println("아이디" + dto.getClientId());
-		
-		if(clientEntity == null) {
-			System.out.println("회원이 아닙니다.");
-			throw new WrongIdPasswordException();
-		}
-		
-		if(!clientDTO.matchPassword(dto.getClientPass())) {
-			System.out.println("비밀번호가 다릅니다.");
-			throw new WrongIdPasswordException();
-		}
-		return new AuthInfo(clientEntity.getClientId(), clientEntity.getClientPass());
-	}
+//	@Override
+//	public AuthInfo loginProcess(ClientDTO dto) {
+//		ClientEntity clientEntity = clientRepository.findByClientId(dto.getClientId());
+//		ClientDTO clientDTO = ClientDTO.toDto(clientEntity);
+//		
+////		System.out.println("아이디" + dto.getClientId());
+//		
+//		if(clientEntity == null) {
+//			System.out.println("회원이 아닙니다.");
+//			throw new WrongIdPasswordException();
+//		}
+//		
+//		if(!clientDTO.matchPassword(dto.getClientPass())) {
+//			System.out.println("비밀번호가 다릅니다.");
+//			throw new WrongIdPasswordException();
+//		}
+//		return new AuthInfo(clientEntity.getClientId(), clientEntity.getClientPass());
+//	}
 
 	@Override
 	public ClientDTO updateProcess(String clientId) {
@@ -65,15 +65,16 @@ public class ClientServiceImp implements ClientService{
 	}
 
 	@Override
-	public ClientDTO callNameProcess(String clientId) {
+	public ClientDTO getClientNameProcess(String clientId) {
 		ClientEntity clientEntity = clientRepository.findByClientId(clientId);
-		return ClientDTO.toDto(clientEntity); // 결과값을 entity에 담아오는데 dto 변환해서 가져오려고 함
+		return ClientDTO.toDto(clientEntity); // 결과값을 entity에 담아오는데 dto로 변환해서 가져오려고 함
 	}
 
 	@Override
 	public ClientDTO deleleProcess(String clientId) {
-		
-		return null;
+		ClientEntity clientEntity = clientRepository.deleteByClientId(clientId);
+		return ClientDTO.toDto(clientEntity);
 	}
+	
 
 }

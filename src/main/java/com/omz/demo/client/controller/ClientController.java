@@ -1,5 +1,6 @@
 package com.omz.demo.client.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -7,11 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -69,13 +73,35 @@ public class ClientController {
 		clientService.updateProcess(clientDTO);
 	}
 	
-//	@GetMapping("/delete/{clientId}")
-//	public String deleteById(@PathVariable String clientId) {
-//		return null;
-//		
+	// 회원이름 불러오기
+	@GetMapping("/getClientName/{clientId}")
+	public ClientDTO getClientNameExcute(@PathVariable("clientId") String clientId) {
+		ClientDTO dto = clientService.getClientNameProcess(clientId);
+		return dto;
+	}
+
+	// 회원탈퇴 폼
+	@GetMapping("/delete/{clientId}")
+	public String deleteById(@PathVariable String clientId) {
+		return "/login";
+	}
+	
+	// 회원탈퇴 처리
+	@DeleteMapping("/delete/{clientId}")
+	@ResponseBody
+	public ClientDTO deleteByClientId(final String clientId) {
+		System.out.println("탈퇴할 아이디 : " + clientId);
+		return clientService.deleleProcess(clientId);
+	}
+	
+	// 로그인 실패 예외처리
+//	@GetMapping("/login")
+//	public String login(@RequestParam(value = "error", required = false) String error,
+//			@RequestParam(value = "exception", required = false) String exception, Model model) {
+//		model.addAttribute("error", error);
+//		model.addAttribute("exception", exception);
+//		return "/login";
 //	}
-	
-	
 	
 //	@GetMapping("/idcheck/{clientId}")
 //	public ClientEntity idCheckExecute(@PathVariable("clientId") String clientId, ClientDTO dto) {
@@ -111,13 +137,5 @@ public class ClientController {
 //	public String login() {
 //		return "login";
 //	}
-	
-	@GetMapping("/callName/{clientId}")
-	public ClientDTO callNameExcute(@PathVariable ("clientId") String clientId) {
-		ClientDTO dto = clientService.callNameProcess(clientId);
-		return dto;
-	}
-	
-
 
 }
