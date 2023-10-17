@@ -115,7 +115,7 @@ public class BoardController {
 		if (file != null && !file.isEmpty()) {
 			UUID random = FileUpload.saveCopyFile(file, filePath);
 			dto.setUpload(random + "_" + file.getOriginalFilename());
-			// d:\\download\\temp 경로에 첨부파일 저장
+			// d:\\download\\temp 경로에 첨부파일 저장d
 			file.transferTo(new File(random + "_" + file.getOriginalFilename()));
 		}
 		boardService.updateProcess(dto, filePath);
