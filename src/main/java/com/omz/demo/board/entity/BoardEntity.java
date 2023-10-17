@@ -3,13 +3,16 @@ package com.omz.demo.board.entity;
 import java.sql.Date;
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -43,8 +46,11 @@ public class BoardEntity {
 //	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "token_gen")
 	private long omzboardId;
 	
-	@Column(name = "client_id")
-	private String clientId;
+	@ManyToOne(fetch = FetchType.LAZY, targetEntity = ClientEntity.class)
+	@JoinColumn(name = "client_id")
+	//@Column(name = "client_id")
+//	private String clientId;
+	private ClientEntity clientEntity;
 	
 	@Column(name = "read_count")
 	private long readCount;
@@ -67,12 +73,10 @@ public class BoardEntity {
 	@Column(name = "reg_date")
 	private LocalDateTime regDate;
 	
-	@Column(name = "edit_date")
-	private LocalDateTime editDate;
+//	@Column(name = "edit_date")
+//	private LocalDateTime editDate;
 
 	@Column(name = "upload")
 	private String upload;
-	
-	
 
 }

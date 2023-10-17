@@ -1,29 +1,17 @@
 package com.omz.demo.client.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.omz.demo.client.dto.AuthInfo;
 import com.omz.demo.client.dto.ClientDTO;
-import com.omz.demo.client.entity.ClientEntity;
-import com.omz.demo.client.exception.WrongIdPasswordException;
-import com.omz.demo.client.repository.ClientRepository;
 import com.omz.demo.client.service.ClientService;
 
 @CrossOrigin("*")
@@ -82,16 +70,19 @@ public class ClientController {
 
 	// 회원탈퇴 폼
 	@GetMapping("/delete/{clientId}")
-	public String deleteById(@PathVariable String clientId) {
+	public String deleteForm(@PathVariable String clientId) {
 		return "/login";
 	}
 	
 	// 회원탈퇴 처리
-	@DeleteMapping("/delete/{clientId}")
-	@ResponseBody
-	public ClientDTO deleteByClientId(final String clientId) {
+//	@DeleteMapping("/delete/{clientId}")
+//	@ResponseBody
+	@PostMapping("/delete")
+	public Long deleteByClientId(@RequestBody ClientDTO clientDTO) {
+		String clientId = clientDTO.getClientId();
 		System.out.println("탈퇴할 아이디 : " + clientId);
-		return clientService.deleleProcess(clientId);
+		System.out.println("이름" + clientDTO.getClientName());
+		return clientService.deleteProcess(clientId);
 	}
 	
 	// 로그인 실패 예외처리
@@ -115,27 +106,6 @@ public class ClientController {
 //			throw new WrongIdPasswordException();
 //		}
 //		return clientService.loginProcess(clientId);
-//	}
-//
-	
-//	@GetMapping("/stranger")
-//	public String stranger() {
-//		return "stranger";
-//	}
-//	
-//	@GetMapping("/member")
-//	public String member() {
-//		return "member";
-//	}
-//	
-//	@GetMapping("/admin")
-//	public String admin() {
-//		return "admin";
-//	}
-//	
-//	@GetMapping("/login")
-//	public String login() {
-//		return "login";
 //	}
 
 }

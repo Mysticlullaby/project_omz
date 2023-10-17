@@ -13,7 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
-import com.omz.demo.client.exception.ClientLoginFailHandler;
+
 import com.omz.demo.client.repository.ClientRepository;
 import com.omz.demo.security.jwt.JwtAuthenticationFilter;
 import com.omz.demo.security.jwt.JwtAutorizationFilter;
@@ -44,12 +44,12 @@ public class SecurityConfig {
 	SecurityFilterChain filterChain(HttpSecurity http, AuthenticationFailureHandler ClientLoginFailHandler, AuthenticationFailureHandler clientLoginFailHandler) throws Exception { // 실제 필터를 생성하는 클래스 HttpSecurity
 
         http.csrf().disable();
-//		http.formLogin().disable();
+		http.formLogin().disable();
 		http.httpBasic().disable();
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.apply(new MyCustomerFilter());
 		http.authorizeHttpRequests()
-		.antMatchers("/", "/login", "/signup/*", "/update", "/editinfo/*", "/movie/**", "/review/list/**", "/review/detail/**", "/review/page/**", "/comment/list/**",
+		.antMatchers("/", "/login", "/signup", "/signup/*", "/update", "/editinfo/*", "/delete", "/movie/**", "/review/list/**", "/review/detail/**", "/review/page/**", "/comment/list/**",
 				"/board/list/**", "/board/write", "/idcheck/**", 
 				"/board/view/**", "/board/update/**", "/board/delete/**", "/board/contentdownload/**")
 		.permitAll() // 로그인 없이 접근 허용
@@ -63,7 +63,7 @@ public class SecurityConfig {
 		.defaultSuccessUrl("/");		
 		
 //		.antMatchers("/user/**").authenticated()
-//		.antMatchers("/member/**").access("hasRole('Role_member')")		
+//		.antMatchers("/member/**").access("hasRole('Role_member')")
 		
 		return http.build();
 	}

@@ -25,8 +25,10 @@ public class ClientLoginFailHandler extends SimpleUrlAuthenticationFailureHandle
 			AuthenticationException exception) throws IOException, ServletException {
 
 		String errorMsg;
-		if (exception instanceof BadCredentialsException) {
-			errorMsg = "아이디 또는 비밀번호가 맞지 않습니다.";
+		if (exception instanceof UsernameNotFoundException) {
+			errorMsg = "아이디가 XXXX";
+//		} else if (exception instanceof BadCredentialsException) {
+//			errorMsg = "아이디 또는 비밀번호가 맞지 않습니다.";
 		} else if (exception instanceof InternalAuthenticationServiceException) {
 			errorMsg = "내부적으로 발생한 시스템 문제로 인해 요청을 처리할 수 없습니다.";
 		} else if (exception instanceof UsernameNotFoundException) {

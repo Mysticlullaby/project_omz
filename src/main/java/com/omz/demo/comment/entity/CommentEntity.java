@@ -4,14 +4,20 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.omz.demo.client.entity.ClientEntity;
+import com.omz.demo.client.repository.ClientRepository;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -47,8 +53,11 @@ public class CommentEntity {
 	@Column(name="review_id")
 	private long reviewId;
 	
-	@Column(name="client_id")
-	private String clientId;
+	@ManyToOne(fetch = FetchType.LAZY, targetEntity = ClientEntity.class)
+	@JoinColumn(name = "client_id")
+//	@Column(name="client_id") 
+//	private String clientId;
+	private ClientEntity clientEntity;
 	
 	@Column(name="comment_content")
 	private String commentContent;
@@ -57,7 +66,8 @@ public class CommentEntity {
 	@Column(name="reg_date", updatable = false)
 	private LocalDateTime regDate;
 	
-	@UpdateTimestamp
-	@Column(name="edit_date")
-	private LocalDateTime editDate;
+//	@UpdateTimestamp
+//	@Column(name="edit_date")
+//	private LocalDateTime editDate;
+	
 }
