@@ -81,7 +81,7 @@ public class BoardController {
 	} // end listExecute()
 
 	@PostMapping("/board/write")
-	public String writeProExcute(BoardDTO dto, PageDTO pv, HttpServletRequest req, HttpSession session) {
+	public String writeExecute(BoardDTO dto, PageDTO pv, HttpServletRequest req, HttpSession session) {
 		MultipartFile file = dto.getFilename();
 
 		System.out.println("clientid:" + dto.getClientId());
@@ -115,7 +115,7 @@ public class BoardController {
 		if (file != null && !file.isEmpty()) {
 			UUID random = FileUpload.saveCopyFile(file, filePath);
 			dto.setUpload(random + "_" + file.getOriginalFilename());
-			// d:\\download\\temp 경로에 첨부파일 저장
+			// d:\\download\\temp 경로에 첨부파일 저장d
 			file.transferTo(new File(random + "_" + file.getOriginalFilename()));
 		}
 		boardService.updateProcess(dto, filePath);
