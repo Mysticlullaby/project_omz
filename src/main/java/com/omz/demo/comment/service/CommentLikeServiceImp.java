@@ -28,5 +28,10 @@ public class CommentLikeServiceImp implements CommentLikeService{
 	public void deleteProcess(long commentId, String clientId) {
 		commentLikeRepository.deleteByCommentIdAndClientId(commentId, clientId);	
 	}
+	
+	@Override
+	public void deleteSequence(long commentId) {
+		commentLikeRepository.deleteByCommentId(commentId);
+	}
 
 }

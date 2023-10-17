@@ -28,5 +28,9 @@ public class ViewCountServiceImp implements ViewCountService{
 	public void deleteProcess(long movieId, String clientId) {
 		viewCountRepository.deleteByMovieIdAndClientId(movieId, clientId);
 	}
+	
+	public void getProcess(long movieId, String clientId) {
+		viewCountRepository.findByMovieIdAndClientId(movieId, clientId);
+	}
 
 }

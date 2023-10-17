@@ -30,7 +30,7 @@ public class CommentServiceImp implements CommentService{
 	@Override
 	public List<CommentDTO> listProcess(long reviewId, String clientId) {
 		List<CommentDTO> dtoList = new ArrayList<>();
-		List<CommentEntity> entityList = commentRepository.findByReviewIdOrderByRegDateDesc(reviewId);
+		List<CommentEntity> entityList = commentRepository.findByReviewId(reviewId);
 		for(CommentEntity entity : entityList) {
 			CommentDTO dto = CommentDTO.toDto(entity);
 			dto.setLikeCount(commentLikeRepository.countByCommentId(dto.getCommentId()));
@@ -44,7 +44,8 @@ public class CommentServiceImp implements CommentService{
 
 	@Override
 	public void deleteProcess(long commentId) {
-		commentRepository.deleteById(commentId);	
+		commentLikeRepository.deleteByCommentId(commentId);
+		commentRepository.deleteById(commentId);
 	}		
 
 }

@@ -9,7 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.omz.demo.comment.entity.CommentEntity;
+import com.omz.demo.comment.repository.CommentLikeRepository;
 import com.omz.demo.comment.repository.CommentRepository;
+import com.omz.demo.movie.entity.ViewCountEntity;
+import com.omz.demo.movie.repository.ViewCountRepository;
 import com.omz.demo.review.dto.ReviewDTO;
 import com.omz.demo.review.dto.ReviewPageDTO;
 import com.omz.demo.review.entity.ReviewEntity;
@@ -29,10 +33,23 @@ public class ReviewServiceImp implements ReviewService{
 	@Autowired
 	private CommentRepository commentRepository;
 	
+	@Autowired
+	private CommentLikeRepository commentLikeRepository;
+	
+	@Autowired
+	private ViewCountRepository viewCountRepository;
+	
 	@Override
 	public void saveProcess(ReviewDTO dto) {
 		ReviewEntity entity = ReviewDTO.toEntity(dto);
 		reviewRepository.save(entity);
+		
+		if(viewCountRepository.findByMovieIdAndClientId(entity.getMovieId(), entity.getClientId()) == null) {
+			ViewCountEntity vcEntity = new ViewCountEntity();
+			vcEntity.setMovieId(entity.getMovieId());
+			vcEntity.setClientId(entity.getClientId());
+			viewCountRepository.save(vcEntity);
+		}
 	}
 
 	@Override
@@ -88,6 +105,18 @@ public class ReviewServiceImp implements ReviewService{
 
 	@Override
 	public void deleteProcess(long reviewId) {
+		//리뷰에 달린 댓글들 목록 가져오기
+		List<CommentEntity> commentList = commentRepository.findByReviewId(reviewId);
+		
+		//가져온 목록의 댓글들 삭제하기
+		for(CommentEntity comment : commentList) {
+			//댓글에 달린 좋아요 먼저 삭제하기
+			commentLikeRepository.deleteByCommentId(comment.getCommentId());
+			//댓글 삭제
+			commentRepository.deleteById(comment.getCommentId());
+		}
+		
+		reviewLikeRepository.deleteByReviewId(reviewId);
 		reviewRepository.deleteById(reviewId);		
 	}
 
