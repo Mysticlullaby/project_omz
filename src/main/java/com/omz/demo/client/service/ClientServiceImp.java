@@ -60,37 +60,5 @@ public class ClientServiceImp implements ClientService{
 	public Long deleteProcess(String clientId) {
 		return clientRepository.deleteByClientId(clientId);
 	}
-	
-//	@Override
-//	public void delete(ClientEntity clientEntity) {
-//		clientRepository.delete(clientEntity);
-//	}
-	
-//	@Override
-//	public boolean deleteProcess(ClientEntity clientEntity) throws Exception {
-//		clientRepository.delete(clientEntity);
-//		boolean res = true;
-//		return res;
-//	}	
-	
-//	@Override
-//	public AuthInfo loginProcess(ClientDTO dto) {
-//		ClientEntity clientEntity = clientRepository.findByClientId(dto.getClientId());
-//		ClientDTO clientDTO = ClientDTO.toDto(clientEntity);
-//		
-////		System.out.println("아이디" + dto.getClientId());
-//		
-//		if(clientEntity == null) {
-//			System.out.println("회원이 아닙니다.");
-//			throw new WrongIdPasswordException();
-//		}
-//		
-//		if(!clientDTO.matchPassword(dto.getClientPass())) {
-//			System.out.println("비밀번호가 다릅니다.");
-//			throw new WrongIdPasswordException();
-//		}
-//		return new AuthInfo(clientEntity.getClientId(), clientEntity.getClientPass());
-//	}
-	
 
 }

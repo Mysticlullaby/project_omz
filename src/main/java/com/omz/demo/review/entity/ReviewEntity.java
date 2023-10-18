@@ -47,11 +47,12 @@ public class ReviewEntity {
 	@Column(name="movie_id")
 	private long movieId;
 	
-	@ManyToOne(fetch = FetchType.LAZY, targetEntity = ClientEntity.class)
-	@JoinColumn(name = "client_id")
-	//@Column(name="client_id")
-//	private String clientId;
-	private ClientEntity clientEntity;
+	@Column(name = "client_id")
+	private String clientId;
+	
+//	@ManyToOne(fetch = FetchType.LAZY, targetEntity = ClientEntity.class)
+//	@JoinColumn(name = "client_id")
+//	private ClientEntity clientEntity;
 	
 	@Column(name="review_content")
 	private String reviewContent;
@@ -63,8 +64,11 @@ public class ReviewEntity {
 	@Column(name="reg_date", updatable = false)
 	private LocalDateTime regDate;
 	
-//	@UpdateTimestamp
-//	@Column(name="edit_date")
-//	private LocalDateTime editDate;
+	@UpdateTimestamp
+	@Column(name="edit_date")
+	private LocalDateTime editDate;
+	
+//	@Column(name="like_count")
+//	private long likeCount;
 	
 }

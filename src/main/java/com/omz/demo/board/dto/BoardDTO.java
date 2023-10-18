@@ -50,9 +50,9 @@ public class BoardDTO {
 				.subject(entity.getSubject())
 				.boardContent(entity.getBoardContent())
 				.regDate(entity.getRegDate())
-//				.editDate(entity.getEditDate())
+				.editDate(entity.getEditDate())
 				.upload(entity.getUpload())
-//				.clientId(entity.getClientId())
+				.clientId(entity.getClientId())
 				.build();
 	}
 	
@@ -68,9 +68,9 @@ public class BoardDTO {
 				.subject(dto.getSubject())
 				.boardContent(dto.getBoardContent())
 				.regDate(dto.getRegDate())
-//				.editDate(dto.getEditDate())
+				.editDate(dto.getEditDate())
 				.upload(dto.getUpload())
-//				.clientId(dto.getClientId())
+				.clientId(dto.getClientId())
 				.build();
 	}
 

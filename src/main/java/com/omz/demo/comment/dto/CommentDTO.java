@@ -30,14 +30,17 @@ public class CommentDTO {
 	private LocalDateTime regDate;
 	private LocalDateTime editDate;
 	
+	private long likeCount;
+	private boolean likeCheck;
+	
 	public static CommentEntity toEntity(CommentDTO dto) {
 		return CommentEntity.builder()
 				.commentId(dto.getCommentId())
 				.reviewId(dto.getReviewId())
-//				.clientId(dto.getClientId())
+				.clientId(dto.getClientId())
 				.commentContent(dto.getCommentContent())
 				.regDate(dto.getRegDate())
-//				.editDate(dto.getEditDate())
+				.editDate(dto.getEditDate())
 				.build();
 	}
 	
@@ -45,10 +48,10 @@ public class CommentDTO {
 		return CommentDTO.builder()
 				.commentId(entity.getCommentId())
 				.reviewId(entity.getReviewId())
-//				.clientId(entity.getClientId())
+				.clientId(entity.getClientId())
 				.commentContent(entity.getCommentContent())
 				.regDate(entity.getRegDate())
-//				.editDate(entity.getEditDate())
+				.editDate(entity.getEditDate())
 				.build();
 	}
 	

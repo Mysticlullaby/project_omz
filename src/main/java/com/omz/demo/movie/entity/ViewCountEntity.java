@@ -1,4 +1,4 @@
-package com.omz.demo.comment.entity;
+package com.omz.demo.movie.entity;
 
 import java.time.LocalDateTime;
 
@@ -17,7 +17,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.omz.demo.client.entity.ClientEntity;
-import com.omz.demo.client.repository.ClientRepository;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,49 +25,41 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name="omz_comment")
-@AllArgsConstructor
-@NoArgsConstructor
+@Table(name="view_count")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @SequenceGenerator(
-		name="comment_num_gen", 
-		sequenceName = "comment_num_seq",
+		name="view_num_gen", 
+		sequenceName = "view_num_seq",
 		initialValue = 1,
 		allocationSize = 1)
-public class CommentEntity {
-//	comment_id      NUMBER NOT NULL,
-//  review_id       NUMBER NOT NULL,
-//  client_id       VARCHAR2(64) NOT NULL,
-//  comment_content VARCHAR2(512),
-//  reg_date        TIMESTAMP,
-//  edit_date       TIMESTAMP
+public class ViewCountEntity {
+//	viewcount_id NUMBER NOT NULL,
+//  client_id    VARCHAR2(64) NOT NULL,
+//  movie_id     NUMBER NOT NULL,
+//  reg_date     TIMESTAMP,
+//  edit_date    TIMESTAMP
 	
 	@Id
-	@Column(name="comment_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "comment_num_gen")
-	private long commentId;
+	@Column(name="viewcount_id")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "view_num_gen")
+	private long viewcountId;
 	
-	@Column(name="review_id")
-	private long reviewId;
-
-	@Column(name="client_id") 
+	@Column(name = "client_id")
 	private String clientId;
 	
 //	@ManyToOne(fetch = FetchType.LAZY, targetEntity = ClientEntity.class)
 //	@JoinColumn(name = "client_id")
 //	private ClientEntity clientEntity;
 	
-	@Column(name="comment_content")
-	private String commentContent;
+	@Column(name="movie_id")
+	private long movieId;
 	
 	@CreationTimestamp
 	@Column(name="reg_date", updatable = false)
 	private LocalDateTime regDate;
-	
-	@UpdateTimestamp
-	@Column(name="edit_date")
-	private LocalDateTime editDate;
-	
+
 }

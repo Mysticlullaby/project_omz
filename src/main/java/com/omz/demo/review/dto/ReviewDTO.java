@@ -30,15 +30,19 @@ public class ReviewDTO {
 	private LocalDateTime regDate;
 	private LocalDateTime editDate;
 	
+	private long likeCount;
+	private boolean likeCheck;
+	private long commentCount;
+	
 	public static ReviewEntity toEntity(ReviewDTO dto) {
 		return ReviewEntity.builder()
 				.reviewId(dto.getReviewId())
 				.movieId(dto.getMovieId())
-//				.clientId(dto.getClientId())
+				.clientId(dto.getClientId())
 				.reviewContent(dto.getReviewContent())
 				.rating(dto.getRating())
 				.regDate(dto.getRegDate())
-//				.editDate(dto.getEditDate())
+				.editDate(dto.getEditDate())
 				.build();
 	}
 	
@@ -46,11 +50,12 @@ public class ReviewDTO {
 		return ReviewDTO.builder()
 				.reviewId(entity.getReviewId())
 				.movieId(entity.getMovieId())
-//				.clientId(entity.getClientId())
+				.clientId(entity.getClientId())
 				.reviewContent(entity.getReviewContent())
 				.rating(entity.getRating())
 				.regDate(entity.getRegDate())
-//				.editDate(entity.getEditDate())
+				.editDate(entity.getEditDate())
+//				.likeCount(entity.getLikeCount())
 				.build();
 	}
 
