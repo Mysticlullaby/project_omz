@@ -7,5 +7,6 @@ import com.omz.demo.movie.dto.MovieDTO;
 public interface MovieService {
 	public List<MovieDTO> listProcess();
 	public MovieDTO getProcess(long id, String clientId);
+	public List<MovieDTO> searchProcess(String keyword);
 	
 }

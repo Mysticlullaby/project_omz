@@ -45,4 +45,6 @@ public interface ReviewRepository extends JpaRepository<ReviewEntity, Long>{
 			  + " WHERE rm>=:#{#pdto.startRow} AND rm<=:#{#pdto.endRow}", nativeQuery = true)
 	List<ReviewEntity> getReviewPage(@Param("movieId") long movieId, @Param("pdto") ReviewPageDTO pdto);
 	
+	ReviewEntity findByMovieIdAndClientId(long movieId, String clientId);
+	
 }

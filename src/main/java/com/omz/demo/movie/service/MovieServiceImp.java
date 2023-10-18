@@ -11,6 +11,8 @@ import com.omz.demo.movie.dto.MovieDTO;
 import com.omz.demo.movie.entity.MovieEntity;
 import com.omz.demo.movie.repository.MovieRepository;
 import com.omz.demo.movie.repository.ViewCountRepository;
+import com.omz.demo.review.entity.ReviewEntity;
+import com.omz.demo.review.repository.ReviewRepository;
 
 @Service
 @Transactional
@@ -21,6 +23,9 @@ public class MovieServiceImp implements MovieService{
 	
 	@Autowired
 	private ViewCountRepository viewCountRepository;
+	
+	@Autowired
+	private ReviewRepository reviewRepository;
 
 	@Override
 	public List<MovieDTO> listProcess() {
@@ -42,7 +47,24 @@ public class MovieServiceImp implements MovieService{
 			if(viewCountRepository.findByMovieIdAndClientId(movieId, clientId) != null) {
 				dto.setViewCheck(true);
 			}
+			
+			ReviewEntity reviewEntity = reviewRepository.findByMovieIdAndClientId(movieId, clientId);
+			if(reviewEntity != null) {
+				dto.setReviewId(reviewEntity.getReviewId());
+			}
 		}
 		return dto;
+	}
+
+	@Override
+	public List<MovieDTO> searchProcess(String keyword) {
+		List<MovieDTO> dtoList = new ArrayList<>();
+		List<MovieEntity> entityList = movieRepository.searchByKeyword(keyword);
+		
+		for(MovieEntity entity : entityList) {
+			dtoList.add(MovieDTO.toDto(entity));
+		}
+		
+		return dtoList;
 	}
 }
