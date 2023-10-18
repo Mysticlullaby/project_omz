@@ -3,6 +3,7 @@ package com.omz.demo.movie.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +26,11 @@ public class ViewCountController {
 	@DeleteMapping("/view/delete/{movieId}/{clientId}")
 	public void deleteExecute(@PathVariable("movieId") long movieId, @PathVariable("clientId") String clientId) {
 		viewCountService.deleteProcess(movieId, clientId);
+	}
+	
+	@GetMapping("/view/check/{clientId}")
+	public long checkExecute(@PathVariable("clientId") String clientId) {
+		return viewCountService.checkProcess(clientId);
 	}
 }
 

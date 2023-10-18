@@ -6,4 +6,5 @@ public interface ViewCountService {
 	public void saveProcess(ViewCountDTO dto);
 	public long countProcess(long movieId);
 	public void deleteProcess(long movieId, String clientId);
+	public long checkProcess(String clientId);
 }

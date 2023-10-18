@@ -33,4 +33,9 @@ public class ViewCountServiceImp implements ViewCountService{
 		viewCountRepository.findByMovieIdAndClientId(movieId, clientId);
 	}
 
+	@Override
+	public long checkProcess(String clientId) {
+		return viewCountRepository.countByClientId(clientId);
+	}
+
 }
