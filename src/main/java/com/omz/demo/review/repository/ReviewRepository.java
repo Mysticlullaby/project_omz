@@ -47,4 +47,6 @@ public interface ReviewRepository extends JpaRepository<ReviewEntity, Long>{
 	
 	ReviewEntity findByMovieIdAndClientId(long movieId, String clientId);
 	
+	long countByClientId(String clientId);
+	
 }
