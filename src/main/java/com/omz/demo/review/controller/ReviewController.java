@@ -58,4 +58,9 @@ public class ReviewController {
 		System.out.println("reviewId from ReviewDTO in updateExecute: " + dto.getReviewId());
 		reviewService.saveProcess(dto);
 	}
+	
+	@GetMapping("/review/count/{clientId}")
+	public long countExectue(@PathVariable("clientId") String clientId) {
+		return reviewService.countProcess(clientId);
+	}
 }
