@@ -146,4 +146,9 @@ public class ReviewServiceImp implements ReviewService{
 		return dto;
 	}
 
+	@Override
+	public long countProcess(String clientId) {
+		return reviewRepository.countByClientId(clientId);
+	}
+
 }

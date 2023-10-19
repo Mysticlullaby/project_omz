@@ -43,17 +43,19 @@ public class SecurityConfig {
 	// 위임받은 요청을 각각의 Filter에게 순서대로 요청하는데 각각의 필터가 체인으로 연결되어 수행>넘김>수행>넘김으로 진행되며 이때 수행되는 메소드가 doFilter
 	SecurityFilterChain filterChain(HttpSecurity http, AuthenticationFailureHandler ClientLoginFailHandler, AuthenticationFailureHandler clientLoginFailHandler) throws Exception { // 실제 필터를 생성하는 클래스 HttpSecurity
 
-        http.csrf().disable();
+		http.csrf().disable();
 		http.formLogin().disable();
 		http.httpBasic().disable();
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.apply(new MyCustomerFilter());
 		http.authorizeHttpRequests()
-		.antMatchers("/", "/signup", "/signup/*", "/update", "/editinfo/*", "/movie/**", "/review/list/**", "/review/detail/**", "/review/page/**", "/comment/list/**",
-				"/board/list/**", "/board/write", "/view/check/**", "/search/**", "/board/view/**", "/board/update/**", "/board/delete/**", "/board/contentdownload/**")
-		.permitAll() // 로그인 없이 접근 허용
-		.anyRequest().authenticated() // 그외 모든 요청에 대해서 인증(로그인)이 필요
-		
+				.antMatchers("/", "/signup", "/signup/*", "/update", "/editinfo/*", 
+						"/movie/**", "/comment/list/**","/view/check/**", "/search/**", 
+						"/review/list/**", "/review/detail/**", "/review/page/**", "/review/count/**", 
+						"/board/list/**", "/board/write", "/board/view/**", "/board/update/**",	"/board/delete/**", "/board/contentdownload/**")
+				.permitAll() // 로그인 없이 접근 허용
+				.anyRequest().authenticated() // 그외 모든 요청에 대해서 인증(로그인)이 필요
+
 		.and()
 		.formLogin()
 		.loginPage("/login")
