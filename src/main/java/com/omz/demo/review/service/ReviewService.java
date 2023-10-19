@@ -11,4 +11,5 @@ public interface ReviewService {
 	public Map<String, Object> pageProcess(long movieId, long currentPage, String clientId);
 	public void deleteProcess(long reviewId);
 	public ReviewDTO getProcess(long reviewId, String clientId);
+	public long countProcess(String clientId);
 }

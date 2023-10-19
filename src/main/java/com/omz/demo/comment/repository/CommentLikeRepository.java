@@ -8,4 +8,9 @@ public interface CommentLikeRepository extends JpaRepository<CommentLikeEntity, 
 	public long countByCommentId(long commentId);
 	public CommentLikeEntity findByCommentIdAndClientId(long commentId, String clientId);
 	public void deleteByCommentIdAndClientId(long commentId, String clientId);
+	public void deleteByCommentId(long commentId);
+	
+//	public CommentLikeEntity findByCommentIdAndClientEntityClientId(long commentId, String clientId);
+//	public void deleteByCommentIdAndClientEntityClientId(long commentId, String clientId);	
+
 }

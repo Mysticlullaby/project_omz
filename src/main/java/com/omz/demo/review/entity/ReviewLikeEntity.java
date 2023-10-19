@@ -2,11 +2,16 @@ package com.omz.demo.review.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import com.omz.demo.client.entity.ClientEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,8 +38,12 @@ public class ReviewLikeEntity {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "review_like_num_gen")
 	private long reviewlikeId;
 	
-	@Column(name="client_id")
+	@Column(name = "client_id")
 	private String clientId;
+	
+//	@ManyToOne(fetch = FetchType.LAZY, targetEntity = ClientEntity.class)
+//	@JoinColumn(name = "client_id")
+//	private ClientEntity clientEntity;
 	
 	@Column(name="review_id")
 	private long reviewId;
