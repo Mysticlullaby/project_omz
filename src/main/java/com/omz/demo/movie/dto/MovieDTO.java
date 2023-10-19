@@ -29,6 +29,7 @@ public class MovieDTO {
 	
 	private long viewCount;
 	private boolean viewCheck;
+	private long reviewId;
 	
 	public static MovieEntity toEntity(MovieDTO dto) {
 		return MovieEntity.builder()

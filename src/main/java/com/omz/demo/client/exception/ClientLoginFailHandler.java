@@ -26,7 +26,7 @@ public class ClientLoginFailHandler extends SimpleUrlAuthenticationFailureHandle
 
 		String errorMsg;
 		if (exception instanceof UsernameNotFoundException) {
-			errorMsg = "아이디가 XXXX";
+			errorMsg = "아이디 또는 비밀번호가 맞지 않습니다.";
 //		} else if (exception instanceof BadCredentialsException) {
 //			errorMsg = "아이디 또는 비밀번호가 맞지 않습니다.";
 		} else if (exception instanceof InternalAuthenticationServiceException) {

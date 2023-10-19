@@ -20,12 +20,19 @@ public class MovieController {
 	
 	@GetMapping("/movie/list")
 	public List<MovieDTO> listExecute(){
+		System.out.println("liestExecute processing");
 		return movieService.listProcess();
 	}
 	
 	@GetMapping("/movie/{movieId}/{clientId}")
 	public MovieDTO getExecute(@PathVariable("movieId") long movieId, @PathVariable("clientId") String clientId) {
 		return movieService.getProcess(movieId, clientId);
+	}
+	
+	@GetMapping("/search/{keyword}")
+	public List<MovieDTO> searchExecute(@PathVariable("keyword") String keyword){
+		System.out.println("searchExecute in process: " + keyword);
+		return movieService.searchProcess(keyword);
 	}
 
 }

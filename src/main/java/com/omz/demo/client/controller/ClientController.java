@@ -75,37 +75,12 @@ public class ClientController {
 	}
 	
 	// 회원탈퇴 처리
-//	@DeleteMapping("/delete/{clientId}")
-//	@ResponseBody
 	@PostMapping("/delete")
 	public Long deleteByClientId(@RequestBody ClientDTO clientDTO) {
 		String clientId = clientDTO.getClientId();
-		System.out.println("탈퇴할 아이디 : " + clientId);
-		System.out.println("이름" + clientDTO.getClientName());
+		System.out.println("탈퇴 아이디 : " + clientId);
+		System.out.println("탈퇴회원이름 : " + clientDTO.getClientName());
 		return clientService.deleteProcess(clientId);
 	}
-	
-	// 로그인 실패 예외처리
-//	@GetMapping("/login")
-//	public String login(@RequestParam(value = "error", required = false) String error,
-//			@RequestParam(value = "exception", required = false) String exception, Model model) {
-//		model.addAttribute("error", error);
-//		model.addAttribute("exception", exception);
-//		return "/login";
-//	}
-	
-//	@GetMapping("/idcheck/{clientId}")
-//	public ClientEntity idCheckExecute(@PathVariable("clientId") String clientId, ClientDTO dto) {
-//		System.out.println("idcheck 메소드가 호출되었습니다. 체크해야 할 아이디는 : " + clientId);
-//		
-//		ClientEntity clientEntity = clientService.loginProcess(dto.getClientId());
-//		ClientDTO clientDTO = ClientDTO.toDto(clientEntity);
-//
-//		if (clientId == null) {
-//			System.out.println("회원이 아닙니다.");
-//			throw new WrongIdPasswordException();
-//		}
-//		return clientService.loginProcess(clientId);
-//	}
 
 }
