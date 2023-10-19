@@ -45,41 +45,35 @@ public class PrincipalDetails implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		// TODO Auto-generated method stub
 		return clientDTO.getClientPass();
 	}
 
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
 		return clientDTO.getClientId();
 	}
 
 	//계정만료여부 리턴 -  true(만료안됨)
 	@Override
 	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	//계정의 잠김여부 리턴- true(잠기지 않음)
 	@Override
 	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	//비밀번호의 잠김여부 리턴- true(잠기지 않음)
 	@Override
 	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	//계정의 활성화 여부 리턴 - true(활성화됨)
 	@Override
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 

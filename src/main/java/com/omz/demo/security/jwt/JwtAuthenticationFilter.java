@@ -79,11 +79,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		
 		response.addHeader("Authorization", "Bearer" + jwtToken);
 		
+		// localstorage에 담아주는 곳
 		final Map<String, Object> body = new HashMap<String, Object>();
 		body.put("clientId", principalDetails.getClientDTO().getClientId());
 		body.put("clientName", principalDetails.getClientDTO().getClientName());
-		body.put("authRole", principalDetails.getClientDTO().getAuthRole());
 		body.put("mbti", principalDetails.getClientDTO().getMbti());
+		body.put("authRole", principalDetails.getClientDTO().getAuthRole());		
 		
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.writeValue(response.getOutputStream(), body);

@@ -20,46 +20,45 @@ public class ClientServiceImp implements ClientService{
 	public ClientServiceImp() {
 	}
 	
+	// 회원가입
 	public AuthInfo signupProcess(ClientDTO dto) {
 		ClientEntity entity = ClientDTO.toEntity(dto);
 		clientRepository.save(entity);
 		return new AuthInfo(dto.getClientId(), dto.getClientPass());
 	}
 	
-	// signup duplicate
+	// 회원가입 중복확인
 	@Override
 	public boolean existsByClientId(String clientId) {
 		return clientRepository.existsByClientId(clientId);
 	}
 
-	@Override
-	public AuthInfo loginProcess(ClientDTO dto) {
-		ClientEntity clientEntity = clientRepository.findByClientId(dto.getClientId());
-		ClientDTO clientDTO = ClientDTO.toDto(clientEntity);
-		
-		if(clientEntity == null) {
-			System.out.println("회원이 아닙니다.");
-			throw new WrongIdPasswordException();
-		}
-		
-		if(!clientDTO.matchPassword(dto.getClientPass())) {
-			System.out.println("비밀번호가 다릅니다.");
-			throw new WrongIdPasswordException();
-		}		
-		return new AuthInfo(clientEntity.getClientId(), clientEntity.getClientPass());
-	}
-
+	// 회원정보 가져오기
 	@Override
 	public ClientDTO updateProcess(String clientId) {
 		ClientEntity clientEntity = clientRepository.findByClientId(clientId);
 		return ClientDTO.toDto(clientEntity);
 	}
 
+	// 회원정보 수정
 	@Override
 	public AuthInfo updateProcess(ClientDTO dto) {
 		ClientEntity entity = ClientDTO.toEntity(dto);
 		clientRepository.save(entity);
 		return new AuthInfo(dto.getClientId(), dto.getClientName(), dto.getClientPass());
+	}
+
+	// 회원이름 불러오기
+	@Override
+	public ClientDTO getClientNameProcess(String clientId) {
+		ClientEntity clientEntity = clientRepository.findByClientId(clientId);
+		return ClientDTO.toDto(clientEntity); // 결과값을 entity에 담아오는데 dto로 변환해서 가져오려고 함
+	}
+
+	// 회원탈퇴
+	@Override
+	public Long deleteProcess(String clientId) {
+		return clientRepository.deleteByClientId(clientId);
 	}
 
 }

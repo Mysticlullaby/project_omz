@@ -3,6 +3,9 @@ package com.omz.demo.board.repository;
 import java.util.List;
 
 import javax.persistence.ColumnResult;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

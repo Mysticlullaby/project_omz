@@ -10,4 +10,7 @@ public interface ReviewLikeRepository extends JpaRepository<ReviewLikeEntity, Lo
 	public ReviewLikeEntity findByReviewIdAndClientId(long reviewId, String clientId);
 	public void deleteByReviewIdAndClientId(long reviewId, String clientId);
 	public void deleteByReviewId(long reviewId);
+	
+//	public ReviewLikeEntity findByReviewIdAndClientEntityClientId(long reviewId, String clientId);
+//	public void deleteByReviewIdAndClientEntityClientId(long reviewId, String clientId);
 }
