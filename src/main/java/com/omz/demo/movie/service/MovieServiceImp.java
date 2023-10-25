@@ -43,6 +43,17 @@ public class MovieServiceImp implements MovieService{
 	public MovieDTO getProcess(long movieId, String clientId) {
 		MovieDTO dto = MovieDTO.toDto(movieRepository.findByMovieId(movieId));
 		dto.setViewCount(viewCountRepository.countByMovieId(movieId));
+		
+		String[] stringList = dto.getProvider().replace("['", "").replace("']", "").split("', '");
+		List<String> platformList = new ArrayList<>();
+        for (String string : stringList) {
+            platformList.add(string);
+        }
+        
+        dto.setPlatformList(platformList);
+        
+        System.out.println(platformList);
+		
 		if(clientId != null) {
 			if(viewCountRepository.findByMovieIdAndClientId(movieId, clientId) != null) {
 				dto.setViewCheck(true);

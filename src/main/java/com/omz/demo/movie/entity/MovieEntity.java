@@ -46,4 +46,7 @@ public class MovieEntity {
 	
 	@Column
 	private String castings;
+	
+	@Column
+	private String provider;
 }

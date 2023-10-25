@@ -1,5 +1,7 @@
 package com.omz.demo.movie.dto;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import com.omz.demo.movie.entity.MovieEntity;
@@ -26,10 +28,13 @@ public class MovieDTO {
 	private String poster;
 	private String trailer;
 	private String castings;
+	private String provider;
 	
 	private long viewCount;
 	private boolean viewCheck;
 	private long reviewId;
+	
+	private List<String> platformList;
 	
 	public static MovieEntity toEntity(MovieDTO dto) {
 		return MovieEntity.builder()
@@ -40,6 +45,7 @@ public class MovieDTO {
 				.poster(dto.getPoster())
 				.trailer(dto.getTrailer())
 				.castings(dto.getCastings())
+				.provider(dto.getProvider())
 				.build();
 	}
 	
@@ -52,6 +58,7 @@ public class MovieDTO {
 				.poster(entity.getPoster())
 				.trailer(entity.getTrailer())
 				.castings(entity.getCastings())
+				.provider(entity.getProvider())
 				.build();
 	}
 }
