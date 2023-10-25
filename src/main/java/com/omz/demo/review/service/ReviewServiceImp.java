@@ -44,15 +44,6 @@ public class ReviewServiceImp implements ReviewService{
 		ReviewEntity entity = ReviewDTO.toEntity(dto);
 		reviewRepository.save(entity);
 		
-//		if(viewCountRepository.findByMovieIdAndClientEntityClientId(entity.getMovieId(), entity.getClientEntity().getClientId()) == null) {
-//			ViewCountEntity vcEntity = new ViewCountEntity();
-//			vcEntity.setMovieId(entity.getMovieId());
-////			vcEntity.setClientId(entity.getClientEntity().getClientId());
-//			vcEntity.setClientEntity(entity.getClientEntity());
-//			viewCountRepository.save(vcEntity);
-//		}
-		
-		// 기존 코드 백업용
 		if(viewCountRepository.findByMovieIdAndClientId(entity.getMovieId(), entity.getClientId()) == null) {
 			ViewCountEntity vcEntity = new ViewCountEntity();
 			vcEntity.setMovieId(entity.getMovieId());
@@ -127,7 +118,7 @@ public class ReviewServiceImp implements ReviewService{
 		}
 		
 		reviewLikeRepository.deleteByReviewId(reviewId);
-		reviewRepository.deleteById(reviewId);		
+		reviewRepository.deleteById(reviewId);
 	}
 
 	@Override

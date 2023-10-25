@@ -58,6 +58,8 @@ public class BoardDTO {
 	
 	//컨트롤러에서 디비로 넘겨줄때 변경해야하는 부분
 	public static BoardEntity toEntity(BoardDTO dto) {
+		ClientEntity ce = new ClientEntity();
+		ce.setClientId(dto.getClientId());
 		
 		return BoardEntity.builder()
 				.omzboardId(dto.getOmzboardId())

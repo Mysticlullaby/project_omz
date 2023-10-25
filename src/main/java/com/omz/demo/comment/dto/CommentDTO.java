@@ -2,6 +2,7 @@ package com.omz.demo.comment.dto;
 
 import java.time.LocalDateTime;
 
+import com.omz.demo.client.entity.ClientEntity;
 import com.omz.demo.comment.entity.CommentEntity;
 
 import lombok.AllArgsConstructor;

@@ -41,10 +41,6 @@ public class ReviewLikeEntity {
 	@Column(name = "client_id")
 	private String clientId;
 	
-//	@ManyToOne(fetch = FetchType.LAZY, targetEntity = ClientEntity.class)
-//	@JoinColumn(name = "client_id")
-//	private ClientEntity clientEntity;
-	
 	@Column(name="review_id")
 	private long reviewId;
 }

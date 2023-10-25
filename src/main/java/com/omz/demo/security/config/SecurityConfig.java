@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -18,6 +19,7 @@ import com.omz.demo.client.repository.ClientRepository;
 import com.omz.demo.security.jwt.JwtAuthenticationFilter;
 import com.omz.demo.security.jwt.JwtAutorizationFilter;
 import com.omz.demo.security.service.CorsConfig;
+import com.omz.demo.security.service.PrincipalDetailesService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -34,9 +36,21 @@ public class SecurityConfig {
 	public BCryptPasswordEncoder encodePassword() {
 		return new BCryptPasswordEncoder();
 	}
-
+	
 	@Autowired
 	private CorsConfig corsConfig;
+	
+	@Autowired
+	private PrincipalDetailesService principalDetailesService;
+	
+	@Bean
+	public DaoAuthenticationProvider authenticationProvider() {
+		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+		provider.setUserDetailsService(principalDetailesService);
+		provider.setPasswordEncoder(encodePassword());
+		provider.setHideUserNotFoundExceptions(false);		
+		return provider;
+	}
 	
 	@Bean
 	// 사용자 요청을 받아 위임하면서 찾게 되는게 SecurityFilterChain(FilterChainProxy)이며, 
@@ -61,7 +75,7 @@ public class SecurityConfig {
 		.loginPage("/login")
 		.loginProcessingUrl("/login")
 		.failureHandler(clientLoginFailHandler)
-		.defaultSuccessUrl("/");		
+		.defaultSuccessUrl("/");
 		
 //		.antMatchers("/user/**").authenticated()
 //		.antMatchers("/member/**").access("hasRole('Role_member')")
