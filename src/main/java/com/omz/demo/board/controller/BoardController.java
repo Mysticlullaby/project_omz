@@ -63,7 +63,7 @@ public class BoardController {
 	public Map<String, Object> listExecute(@PathVariable("currentPage") int currentPage, PageDTO pv) {
 		Map<String, Object> map = new HashMap<>();
 		long totalRecord = boardService.countProcess();
-//		System.out.println("total:"+totalRecord);
+//		System.out.println("total:"+totalRecord); 
 
 		map.put("totalRecord", totalRecord);
 		if (totalRecord >= 1) {
