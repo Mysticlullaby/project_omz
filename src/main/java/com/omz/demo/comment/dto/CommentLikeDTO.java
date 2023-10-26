@@ -1,5 +1,6 @@
 package com.omz.demo.comment.dto;
 
+import com.omz.demo.client.entity.ClientEntity;
 import com.omz.demo.comment.entity.CommentLikeEntity;
 
 import lombok.AllArgsConstructor;

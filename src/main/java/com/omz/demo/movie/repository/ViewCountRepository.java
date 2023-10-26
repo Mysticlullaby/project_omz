@@ -9,8 +9,5 @@ public interface ViewCountRepository extends JpaRepository<ViewCountEntity, Long
 	public ViewCountEntity findByMovieIdAndClientId(long movieId, String clientId);
 	public void deleteByMovieIdAndClientId(long movieId, String clientId);
 	public long countByClientId(String clientId);
-	
-//	public ViewCountEntity findByMovieIdAndClientEntityClientId(long movieId, String clientId);
-//	public void deleteByMovieIdAndClientEntityClientId(long movieId, String clientId);
 
 }

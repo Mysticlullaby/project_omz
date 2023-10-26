@@ -1,5 +1,6 @@
 package com.omz.demo.review.dto;
 
+import com.omz.demo.client.entity.ClientEntity;
 import com.omz.demo.review.entity.ReviewLikeEntity;
 
 import lombok.AllArgsConstructor;

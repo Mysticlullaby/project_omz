@@ -51,10 +51,6 @@ public class ViewCountEntity {
 	@Column(name = "client_id")
 	private String clientId;
 	
-//	@ManyToOne(fetch = FetchType.LAZY, targetEntity = ClientEntity.class)
-//	@JoinColumn(name = "client_id")
-//	private ClientEntity clientEntity;
-	
 	@Column(name="movie_id")
 	private long movieId;
 	

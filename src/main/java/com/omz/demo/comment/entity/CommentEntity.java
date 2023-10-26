@@ -56,10 +56,6 @@ public class CommentEntity {
 	@Column(name="client_id") 
 	private String clientId;
 	
-//	@ManyToOne(fetch = FetchType.LAZY, targetEntity = ClientEntity.class)
-//	@JoinColumn(name = "client_id")
-//	private ClientEntity clientEntity;
-	
 	@Column(name="comment_content")
 	private String commentContent;
 	
