@@ -17,6 +17,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.omz.demo.client.entity.ClientEntity;
+import com.omz.demo.movie.entity.MovieEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -49,10 +50,6 @@ public class ReviewEntity {
 	
 	@Column(name = "client_id")
 	private String clientId;
-	
-//	@ManyToOne(fetch = FetchType.LAZY, targetEntity = ClientEntity.class)
-//	@JoinColumn(name = "client_id")
-//	private ClientEntity clientEntity;
 	
 	@Column(name="review_content")
 	private String reviewContent;

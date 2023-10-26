@@ -55,10 +55,22 @@ public class ClientServiceImp implements ClientService{
 		return ClientDTO.toDto(clientEntity); // 결과값을 entity에 담아오는데 dto로 변환해서 가져오려고 함
 	}
 
-	// 회원탈퇴
 	@Override
-	public Long deleteProcess(String clientId) {
-		return clientRepository.deleteByClientId(clientId);
+	public void updateGradeProcess(String clientId) {
+		clientRepository.updateGrade(clientId);
 	}
+
+	// 회원탈퇴
+//	@Override
+//	public Long deleteProcess(String clientId) {
+//		return clientRepository.deleteByClientId(clientId);
+//	}	
+
+	// 회원상태변경
+//	@Override
+//	public void updateGradeProcess(String clientId) {
+//		clientRepository.updateGrade(clientId);
+//		ClientEntity clientEntity = clientRepository.updateGrade(clientId);
+//	}
 
 }

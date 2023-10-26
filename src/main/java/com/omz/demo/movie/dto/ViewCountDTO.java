@@ -2,6 +2,8 @@ package com.omz.demo.movie.dto;
 
 import java.time.LocalDateTime;
 
+import com.omz.demo.client.entity.ClientEntity;
+import com.omz.demo.movie.entity.MovieEntity;
 import com.omz.demo.movie.entity.ViewCountEntity;
 
 import lombok.AllArgsConstructor;

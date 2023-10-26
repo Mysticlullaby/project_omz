@@ -14,15 +14,19 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.omz.demo.client.dto.ClientDTO;
+import com.omz.demo.client.exception.UserIsWithdrawedException;
 import com.omz.demo.security.service.PrincipalDetails;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
@@ -93,14 +97,27 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	@Override
 	protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException failed) throws IOException, ServletException {
-		System.out.println(failed);
 		System.out.println("unsuccessfulAuthentication 실행됨");
 		response.setStatus(HttpStatus.UNAUTHORIZED.value());
 		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 		Map<String, Object> body = new LinkedHashMap<>();
 		body.put("code", HttpStatus.UNAUTHORIZED.value());
 		body.put("error", failed.getMessage());
-		
+
+		System.out.println("boolean : " + (failed instanceof UserIsWithdrawedException));
+		String errorMsg;
+		if (failed instanceof UsernameNotFoundException) {
+			errorMsg = "가입되지 않은 아이디입니다.";
+		} else if (failed instanceof BadCredentialsException) {
+			errorMsg = "비밀번호가 맞지 않습니다.";
+		} else if (failed instanceof InternalAuthenticationServiceException) {
+			errorMsg = "탈퇴한 회원입니다.";
+		} else {
+			errorMsg = "오류가 발생하였습니다.";
+		}
+
+		body.put("errorMsg", errorMsg);
+
 		new ObjectMapper().writeValue(response.getOutputStream(), body);
 	}
 	

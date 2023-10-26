@@ -1,11 +1,19 @@
 package com.omz.demo.movie.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
+
+import com.omz.demo.review.entity.ReviewEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -46,4 +54,7 @@ public class MovieEntity {
 	
 	@Column
 	private String castings;
+	
+	@Column
+	private String provider;
 }
